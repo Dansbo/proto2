@@ -18,8 +18,8 @@ Init_VERA:
 	rts
 
 !macro Write_XY .xc, .yc, .strlabel {
-	ldx	.xc
-	ldy	.yc
+	ldx	#.xc
+	ldy	#.yc
 	jsr	Go_XY
 	ldx	#<.strlabel
 	ldy	#>.strlabel
