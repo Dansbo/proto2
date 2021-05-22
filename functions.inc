@@ -34,5 +34,17 @@ load_chars:
 	bne	@outloop	; While we have not done all chars, jump back
 	rts
 
+;******************************************************************************
+;Move text cursor
+;******************************************************************************
+Go_XY:
+	phx            		;Switching X and Y around so X is
+	phy            		;Horizontal position and Y is
+	plx            		;Vertical as we know from graphing
+	ply
+
+	clc
+	jsr PLOT
+	rts
 
 Functions_end:
