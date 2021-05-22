@@ -26,5 +26,53 @@ Print_Title:
 	ldy #>Title0
 	jsr Print_Str
 
+	ldx #10
+	ldy #2
+	jsr Go_XY
+
+	ldx #<Title1
+	ldy #>Title1
+	jsr Print_Str
+
+	ldx #10
+	ldy #3
+	jsr Go_XY
+
+	ldx #<Title2
+	ldy #>Title2
+	jsr Print_Str
+
+	ldx #10
+	ldy #4
+	jsr Go_XY
+
+	ldx #<Title3
+	ldy #>Title3
+	jsr Print_Str
+
+	ldx #10
+	ldy #5
+	jsr Go_XY
+
+	ldx #<Title4
+	ldy #>Title4
+	jsr Print_Str
+
+	ldx #10
+	ldy #6
+	jsr Go_XY
+
+	ldx #<Title5
+	ldy #>Title5
+	jsr Print_Str
+
+	ldx #10
+	ldy #7
+	jsr Go_XY
+
+	ldx #<Title6
+	ldy #>Title6
+	jsr Print_Str
+
 	rts
 TextUI_end
