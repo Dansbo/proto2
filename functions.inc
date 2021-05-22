@@ -34,5 +34,36 @@ load_chars:
 	bne	@outloop	; While we have not done all chars, jump back
 	rts
 
+;******************************************************************************
+;Move text cursor
+;******************************************************************************
+Go_XY:
+	phx            		;Switching X and Y around so X is
+	phy            		;Horizontal position and Y is
+	plx            		;Vertical as we know from graphing
+	ply
+
+	clc
+	jsr PLOT
+	rts
+
+;******************************************************************************
+;Print string function
+;******************************************************************************
+Print_Str:
+	stx TMP1
+	sty TMP2
+	ldy #0
+
+@Doprint
+	lda (TMP1), Y
+	beq @Printdone
+	jsr CHROUT
+	iny
+	jmp @Doprint
+
+@Printdone
+	rts
+
 
 Functions_end:
