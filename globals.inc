@@ -1,11 +1,368 @@
 	jmp globals_end
 
-title0:	!PET "*****   *****    ****   ******   ****   **  **   ****  ",0
-title1: !PET "**  **  **  **  **  **    **    **  **  **  **  **  ** ",0
-title2: !PET "**  **  **  **  **  **    **    **  ** ********     ** ",0
-title3: !PET "*****   *****   **  **    **    **  **  **  **     **  ",0
-title4: !PET "**      ****    **  **    **    **  ** ********  **    ",0
-title5: !PET "**      ** **   **  **    **    **  **  **  **  **     ",0
-title6: !PET "**      **  **   ****     **     ****   **  **  ****** ",0
+Title0:	!PET "*****   *****    ****   ******   ****   **  **   ****  ",0
+Title1: !PET "**  **  **  **  **  **    **    **  **  **  **  **  ** ",0
+Title2: !PET "**  **  **  **  **  **    **    **  ** ********     ** ",0
+Title3: !PET "*****   *****   **  **    **    **  **  **  **     **  ",0
+Title4: !PET "**      ****    **  **    **    **  ** ********  **    ",0
+Title5: !PET "**      ** **   **  **    **    **  **  **  **  **     ",0
+Title6: !PET "**      **  **   ****     **     ****   **  **  ****** ",0
+
+Chars:
+; ******************* AND/NAND *************************
+; Top left of AND
+	!byte	%........
+	!byte	%....####
+	!byte	%....####
+	!byte	%######..
+	!byte	%######..
+	!byte	%....##..
+	!byte	%....##..
+	!byte	%....##..
+
+; Top left of AND inverted input
+	!byte	%........
+	!byte	%....####
+	!byte	%.##.####
+	!byte	%#..###..
+	!byte	%#..###..
+	!byte	%.##.##..
+	!byte	%....##..
+	!byte	%....##..
+
+; Left mid of AND
+	!byte	%....##..
+	!byte	%....##..
+	!byte	%....##..
+	!byte	%....##..
+	!byte	%....##..
+	!byte	%....##..
+	!byte	%....##..
+	!byte	%....##..
+
+; Bottom Left of AND
+	!byte	%....##..
+	!byte	%....##..
+	!byte	%....##..
+	!byte	%######..
+	!byte	%######..
+	!byte	%....####
+	!byte	%....####
+	!byte	%........
+
+; Bottom Left of AND inverted input
+	!byte	%....##..
+	!byte	%....##..
+	!byte	%.##.##..
+	!byte	%#..###..
+	!byte	%#..###..
+	!byte	%.##.####
+	!byte	%....####
+	!byte	%........
+
+; Top mid of AND
+	!byte	%........
+	!byte	%######..
+	!byte	%########
+	!byte	%......##
+	!byte	%.......#
+	!byte	%........
+	!byte	%........
+	!byte	%........
+
+; Bottom mid of AND
+	!byte	%........
+	!byte	%........
+	!byte	%........
+	!byte	%.......#
+	!byte	%......##
+	!byte	%########
+	!byte	%######..
+	!byte	%........
+
+; Top right of AND
+	!byte	%........
+	!byte	%........
+	!byte	%........
+	!byte	%........
+	!byte	%#.......
+	!byte	%##......
+	!byte	%.##.....
+	!byte	%.##.....
+
+; Bottom right of AND
+	!byte	%.##.....
+	!byte	%.##.....
+	!byte	%##......
+	!byte	%#.......
+	!byte	%........
+	!byte	%........
+	!byte	%........
+	!byte	%........
+
+; Right mid of AND
+	!byte	%..##....
+	!byte	%..##....
+	!byte	%...#....
+	!byte	%...#####
+	!byte	%...#####
+	!byte	%...#....
+	!byte	%..##....
+	!byte	%..##....
+
+; Right mid of NAND
+	!byte	%..##....
+	!byte	%..##....
+	!byte	%...#.##.
+	!byte	%...##..#
+	!byte	%...##..#
+	!byte	%...#.##.
+	!byte	%..##....
+	!byte	%..##....
+
+; ******************* OR/NOR *************************
+; Top left OR
+	!byte	%........
+	!byte	%....####
+	!byte	%....####
+	!byte	%######..
+	!byte	%#######.
+	!byte	%.....##.
+	!byte	%......##
+	!byte	%......##
+
+; Top left OR inverted input
+	!byte	%........
+	!byte	%....####
+	!byte	%.##.####
+	!byte	%#..###..
+	!byte	%#..####.
+	!byte	%.##..##.
+	!byte	%......##
+	!byte	%......##
+
+; Left mid of OR
+	!byte	%......##
+	!byte	%......##
+	!byte	%......##
+	!byte	%......##
+	!byte	%......##
+	!byte	%......##
+	!byte	%......##
+	!byte	%......##
+
+
+; Bottom left OR
+	!byte	%......##
+	!byte	%......##
+	!byte	%.....##.
+	!byte	%#######.
+	!byte	%######..
+	!byte	%....####
+	!byte	%....####
+	!byte	%........
+
+; Bottom left OR inverted input
+	!byte	%......##
+	!byte	%......##
+	!byte	%.##..##.
+	!byte	%#..####.
+	!byte	%#..###..
+	!byte	%.##.####
+	!byte	%....####
+	!byte	%........
+
+; Top mid of OR
+	!byte	%........
+	!byte	%#######.
+	!byte	%########
+	!byte	%.......#
+	!byte	%.......#
+	!byte	%........
+	!byte	%........
+	!byte	%........
+
+; Bottom mid of OR
+	!byte	%........
+	!byte	%........
+	!byte	%........
+	!byte	%.......#
+	!byte	%.......#
+	!byte	%########
+	!byte	%#######.
+	!byte	%........
+
+; Top right OR
+	!byte	%........
+	!byte	%........
+	!byte	%........
+	!byte	%........
+	!byte	%#.......
+	!byte	%#.......
+	!byte	%#.......
+	!byte	%##......
+
+; Bottom right OR
+	!byte	%##......
+	!byte	%#.......
+	!byte	%#.......
+	!byte	%#.......
+	!byte	%........
+	!byte	%........
+	!byte	%........
+	!byte	%........
+
+; Right mid of OR
+	!byte	%.#......
+	!byte	%.##.....
+	!byte	%..#.....
+	!byte	%...#####
+	!byte	%...#####
+	!byte	%..#.....
+	!byte	%.##.....
+	!byte	%.#......
+
+; Right mid of NOR
+	!byte	%.#......
+	!byte	%.##.....
+	!byte	%..#..##.
+	!byte	%...##..#
+	!byte	%...##..#
+	!byte	%..#..##.
+	!byte	%.##.....
+	!byte	%.#......
+
+; ******************* XOR ******************************
+; Top left of XOR
+	!byte	%........
+	!byte	%....#..#
+	!byte	%....##.#
+	!byte	%######..
+	!byte	%#######.
+	!byte	%.....##.
+	!byte	%......##
+	!byte	%......##
+
+; Top left of XOR inverted input
+	!byte	%........
+	!byte	%....#..#
+	!byte	%.##.##.#
+	!byte	%#..###..
+	!byte	%#..####.
+	!byte	%.##..##.
+	!byte	%......##
+	!byte	%......##
+
+; Bottom left of XOR
+	!byte	%......##
+	!byte	%......##
+	!byte	%.....##.
+	!byte	%#######.
+	!byte	%######..
+	!byte	%....##.#
+	!byte	%....#..#
+	!byte	%........
+
+; Bottom left of XOR inverted input
+	!byte	%......##
+	!byte	%......##
+	!byte	%.##..##.
+	!byte	%#..####.
+	!byte	%#..###..
+	!byte	%.##.##.#
+	!byte	%....#..#
+	!byte	%........
+
+; Top mid of XOR
+	!byte	%........
+	!byte	%#######.
+	!byte	%########
+	!byte	%#......#
+	!byte	%##.....#
+	!byte	%.#......
+	!byte	%.##.....
+	!byte	%.##.....
+
+; Bottom mid of XOR
+	!byte	%.##.....
+	!byte	%.##.....
+	!byte	%.#......
+	!byte	%##.....#
+	!byte	%#......#
+	!byte	%########
+	!byte	%#######.
+	!byte	%........
+
+; Mid of XOR
+	!byte	%.##.....
+	!byte	%.##.....
+	!byte	%.##.....
+	!byte	%.##.....
+	!byte	%.##.....
+	!byte	%.##.....
+	!byte	%.##.....
+	!byte	%.##.....
+
+; ******************* NOT/BUFFER ******************************
+; Top of NOT
+	!byte	%........
+	!byte	%........
+	!byte	%........
+	!byte	%........
+	!byte	%....#...
+	!byte	%....##..
+	!byte	%....###.
+	!byte	%....####
+
+; Bottom of NOT
+	!byte	%....####
+	!byte	%....###.
+	!byte	%....##..
+	!byte	%....#...
+	!byte	%........
+	!byte	%........
+	!byte	%........
+	!byte	%........
+
+; Left of NOT
+	!byte	%....##.#
+	!byte	%....##..
+	!byte	%....##..
+	!byte	%######..
+	!byte	%######..
+	!byte	%....##..
+	!byte	%....##..
+	!byte	%....##.#
+
+; Left of NOT inverted input
+	!byte	%....##.#
+	!byte	%....##..
+	!byte	%.##.##..
+	!byte	%#..###..
+	!byte	%#..###..
+	!byte	%.##.##..
+	!byte	%....##..
+	!byte	%....##.#
+
+; Right of NOT
+	!byte	%#.......
+	!byte	%##......
+	!byte	%.##..##.
+	!byte	%..###..#
+	!byte	%..###..#
+	!byte	%.##..##.
+	!byte	%##......
+	!byte	%#.......
+
+; INPUT/BUTTOM
+	!byte	%...##...
+	!byte	%..####..
+	!byte	%.######.
+	!byte	%########
+	!byte	%########
+	!byte	%.######.
+	!byte	%..####..
+	!byte	%...##...
+
 
 globals_end:
