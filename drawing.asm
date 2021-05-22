@@ -1,9 +1,9 @@
 !cpu w65c02
 
-!src "../cx16stuff/cx16.inc"
+!src "cx16.inc"
 
 +SYS_LINE
-!src "../cx16stuff/vera0.9.inc"
+!src "vera0.9.inc"
 
 !macro PRINT_STR .str {
 	bra	+
