@@ -11,9 +11,9 @@ load_chars:
 	lda	#$E8		; This places the custom chars
 	sta	VERA_ADDR_L	; at the end of the font table
 
-	lda	#<CHARS		; Save address of CHARS in ZP
+	lda	#<Chars		; Save address of CHARS in ZP
 	sta	TMP0
-	lda	#>CHARS
+	lda	#>Chars
 	sta	TMP0+1
 
 	ldy	#0
@@ -34,35 +34,5 @@ load_chars:
 	bne	@outloop	; While we have not done all chars, jump back
 	rts
 
-;******************************************************************************
-;Move text cursor
-;******************************************************************************
-Go_XY:
-	phx            		;Switching X and Y around so X is
-	phy            		;Horizontal position and Y is
-	plx            		;Vertical as we know from graphing
-	ply
-
-	clc
-	jsr PLOT
-	rts
-
-;******************************************************************************
-;Print string function
-;******************************************************************************
-Print_Str:
-	stx TMP1
-	sty TMP2
-	ldy #0
-
-@Doprint
-	lda (TMP1), Y
-	beq @Printdone
-	jsr CHROUT
-	iny
-	jmp @Doprint
-
-@Printdone
-	rts
 
 Functions_end:
