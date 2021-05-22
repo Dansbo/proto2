@@ -1,6 +1,7 @@
 	jmp TextUI_end
 
 Init_VERA:
+	;Force 80x60 screen mode
 	lda #1
 	jsr Screen_set_mode
 
