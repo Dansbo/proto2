@@ -4,15 +4,13 @@ Init_VERA:
 	lda #1
 	jsr Screen_set_mode
 
+	;Black BG, white text, clear screeen
 	lda #PET_BLACK
 	jsr CHROUT
-
 	lda #PET_SWAP_FGBG
 	jsr CHROUT
-
 	lda #PET_WHITE
 	jsr CHROUT
-
 	lda #PET_CLEAR
 	jsr CHROUT
 
