@@ -17,4 +17,14 @@ Init_VERA:
 
 	rts
 
+Print_Title:
+	ldx #10
+	ldy #1
+	jsr Go_XY
+
+	ldx #>Title0
+	ldy #<Title0
+	jsr Print_Str
+
+	rts
 TextUI_end
