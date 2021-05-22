@@ -17,62 +17,22 @@ Init_VERA:
 
 	rts
 
+!macro Write_XY .xc, .yc, .strlabel {
+	ldx	.xc
+	ldy	.yc
+	jsr	Go_XY
+	ldx	#<.strlabel
+	ldy	#>.strlabel
+	jsr	Print_str
+}
+
 Print_Title:
-	ldx #10
-	ldy #1
-	jsr Go_XY
-
-	ldx #<Title0
-	ldy #>Title0
-	jsr Print_Str
-
-	ldx #10
-	ldy #2
-	jsr Go_XY
-
-	ldx #<Title1
-	ldy #>Title1
-	jsr Print_Str
-
-	ldx #10
-	ldy #3
-	jsr Go_XY
-
-	ldx #<Title2
-	ldy #>Title2
-	jsr Print_Str
-
-	ldx #10
-	ldy #4
-	jsr Go_XY
-
-	ldx #<Title3
-	ldy #>Title3
-	jsr Print_Str
-
-	ldx #10
-	ldy #5
-	jsr Go_XY
-
-	ldx #<Title4
-	ldy #>Title4
-	jsr Print_Str
-
-	ldx #10
-	ldy #6
-	jsr Go_XY
-
-	ldx #<Title5
-	ldy #>Title5
-	jsr Print_Str
-
-	ldx #10
-	ldy #7
-	jsr Go_XY
-
-	ldx #<Title6
-	ldy #>Title6
-	jsr Print_Str
-
+	+Write_XY 10, 1, Title0
+	+Write_XY 10, 2, Title1
+	+Write_XY 10, 3, Title2
+	+Write_XY 10, 4, Title3
+	+Write_XY 10, 5, Title4
+	+Write_XY 10, 6, Title5
+	+Write_XY 10, 7, Title6
 	rts
 TextUI_end
