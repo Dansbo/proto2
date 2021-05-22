@@ -47,4 +47,22 @@ Go_XY:
 	jsr PLOT
 	rts
 
+;******************************************************************************
+;Print string function
+;******************************************************************************
+Print_Str:
+	stx TMP1
+	sty TMP2
+	ldy #0
+
+@Doprint
+	lda (TMP1), Y
+	beq @Printdone
+	jsr CHROUT
+	iny
+	jmp @Doprint
+
+@Printdone
+	rts
+
 Functions_end:
