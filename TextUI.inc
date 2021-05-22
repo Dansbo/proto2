@@ -23,7 +23,7 @@ Init_VERA:
 	jsr	Go_XY
 	ldx	#<.strlabel
 	ldy	#>.strlabel
-	jsr	Print_str
+	jsr	Print_Str
 }
 
 Print_Title:
