@@ -1,3 +1,4 @@
 #!/bin/bash
-
-acme -f cbm proto2.prg proto2.asm
+rm -rf *.PRG
+rm -rf *.prg
+acme -f cbm -o PROTO2.PRG proto2.asm
