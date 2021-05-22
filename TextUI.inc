@@ -22,8 +22,8 @@ Print_Title:
 	ldy #1
 	jsr Go_XY
 
-	ldx #>Title0
-	ldy #<Title0
+	ldx #<Title0
+	ldy #>Title0
 	jsr Print_Str
 
 	rts
