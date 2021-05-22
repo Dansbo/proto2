@@ -1,1 +1,1 @@
-# proto2
+# PROTO#2 - A logic game
