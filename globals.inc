@@ -7,7 +7,9 @@ Title3: 	!PET PET_GREEN,		"*****   *****   **  **    **    **  **   **  **     *
 Title4: 	!PET PET_YELLOW,	"**      ****    **  **    **    **  **  ********  **    ",0
 Title5: 	!PET PET_ORANGE,	"**      ** **   **  **    **    **  **   **  **  **     ",0
 Title6:		!PET PET_RED,		"**      **  **   ****     **     ****    **  **  ****** ",0
+
 Welcome:	!PET PET_WHITE,		"welcome to this boolean logic circuit trainer",0
+
 Hell0:		!PET PET_RED,		"******  *****    ****   **   ** ",0
 Hell1:		!PET 			"**      **  **  **  **  *** *** ",0
 Hell2:		!PET			"**      **  **  **  **  ******* ",0
@@ -15,6 +17,7 @@ Hell3:		!PET			"****    *****   **  **  ** * ** ",0
 Hell4:		!PET			"**      ****    **  **  **   ** ",0
 Hell5:		!PET    		"**      ** **   **  **  **   ** ",0
 Hell6:		!PET			"**      **  **   ****   **   ** ",0
+
 Hell7:		!PET			"**  **  ******  **      **      ",0
 Hell8:		!PET			"**  **  **      **      **      ",0
 Hell9:		!PET			"**  **  **      **      **      ",0
@@ -22,6 +25,8 @@ Hell10:		!PET			"******  ****    **      **      ",0
 Hell11:		!PET			"**  **  **      **      **      ",0
 Hell12:		!PET			"**  **  **      **      **      ",0
 Hell13:		!PET			"**  **  ******  ******  ******  ",0
+
+Choose:		!PET PET_WHITE,		"Do you want to play this game? (Yes/No/Other)"
 
 Chars:
 ; ******************* AND/NAND *************************
