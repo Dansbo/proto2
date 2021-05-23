@@ -27,12 +27,27 @@ Init_VERA:
 }
 
 Print_Title:
-	+Write_XY 10, 1, Title0
-	+Write_XY 10, 2, Title1
-	+Write_XY 10, 3, Title2
-	+Write_XY 10, 4, Title3
-	+Write_XY 10, 5, Title4
-	+Write_XY 10, 6, Title5
-	+Write_XY 10, 7, Title6
+	+Write_XY 12, 1, Title0
+	+Write_XY 12, 2, Title1
+	+Write_XY 12, 3, Title2
+	+Write_XY 12, 4, Title3
+	+Write_XY 12, 5, Title4
+	+Write_XY 12, 6, Title5
+	+Write_XY 12, 7, Title6
+	+Write_XY 16, 10, Welcome
+	+Write_XY 0, 13, Hell0
+	+Write_XY 0, 14, Hell1
+	+Write_XY 0, 15, Hell2
+	+Write_XY 0, 16, Hell3
+	+Write_XY 0, 17, Hell4
+	+Write_XY 0, 18, Hell5
+	+Write_XY 0, 19, Hell6
+	+Write_XY 39, 21, Hell7
+	+Write_XY 39, 22, Hell8
+	+Write_XY 39, 23, Hell9
+	+Write_XY 39, 24, Hell10
+	+Write_XY 39, 25, Hell11
+	+Write_XY 39, 26, Hell12
+	+Write_XY 39, 27, Hell13
 	rts
 TextUI_end
