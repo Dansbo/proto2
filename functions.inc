@@ -96,7 +96,7 @@ Print_Str:
 ;	$2E - XNOR gate inverted top input
 ;	$30 - XNOR gate inverted bottom input
 ;	$32 - XNOR gate both inputs inverted
-;	$34 - NOT gate (nverter)
+;	$34 - NOT gate (inverter)
 ;	$36 - Output
 ;******************************************************************************
 draw_gate:
