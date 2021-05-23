@@ -49,5 +49,13 @@ Print_Title:
 	+Write_XY 39, 25, Hell11
 	+Write_XY 39, 26, Hell12
 	+Write_XY 39, 27, Hell13
+	+Write_XY 16, 30, Choose
+	+Write_XY 12, 33, Create0
+	+Write_XY 12, 34, Create1
+	+Write_XY 12, 35, Create2
+	+Write_XY 12, 36, Create3
+	+Write_XY 12, 37, Create4
+	+Write_XY 12, 38, Create5
+	+Write_XY 12, 39, Create6
 	rts
 TextUI_end
