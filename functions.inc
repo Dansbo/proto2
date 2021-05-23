@@ -161,13 +161,13 @@ draw_gate:
 	stx	VERA_DATA0
 	inc	VERA_ADDR_M
 	sty	VERA_ADDR_L
-	lda	#E0		; Bottom Left
+	lda	#$E0		; Bottom Left
 	sta	VERA_DATA0
 	stx	VERA_DATA0
 	lda	#$E3		; Bottom middle
 	sta	VERA_DATA0
 	stx	VERA_DATA0
-	lda	#E5		; Bottom Right
+	lda	#$E5		; Bottom Right
 	sta	VERA_DATA0
 	stx	VERA_DATA0
 	rts
