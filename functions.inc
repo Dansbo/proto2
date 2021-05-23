@@ -172,31 +172,779 @@ draw_gate:
 	stx	VERA_DATA0
 	rts
 @and_top_inv:
+	lda	#$DE		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E2		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E4		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$DF		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	VERA_DATA0
+	lda	VERA_DATA0
+	lda	#$E6		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$E0		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E3		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E5		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @and_bot_inv:
+	lda	#$DD		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E2		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E4		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$DF		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	VERA_DATA0
+	lda	VERA_DATA0
+	lda	#$E6		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$E1		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E3		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E5		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @and_both_inv:
+	lda	#$DE		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E2		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E4		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$DF		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	VERA_DATA0
+	lda	VERA_DATA0
+	lda	#$E6		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$E1		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E3		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E5		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @nand_gate:
+	lda	#$DD		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E2		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E4		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$DF		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	VERA_DATA0
+	lda	VERA_DATA0
+	lda	#$E7		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$E0		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E3		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E5		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @nand_top_inv:
+	lda	#$DE		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E2		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E4		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$DF		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	VERA_DATA0
+	lda	VERA_DATA0
+	lda	#$E7		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$E0		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E3		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E5		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @nand_bot_inv:
+	lda	#$DD		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E2		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E4		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$DF		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	VERA_DATA0
+	lda	VERA_DATA0
+	lda	#$E7		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$E1		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E3		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E5		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @nand_both_inv:
+	lda	#$DE		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E2		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E4		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$DF		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	VERA_DATA0
+	lda	VERA_DATA0
+	lda	#$E7		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$E1		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E3		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E5		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @or_gate:
+	lda	#$E8		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$ED		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EF		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EA		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	VERA_DATA0
+	lda	VERA_DATA0
+	lda	#$F1		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EB		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EE		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F0		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @or_top_inv:
+	lda	#$E9		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$ED		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EF		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EA		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	VERA_DATA0
+	lda	VERA_DATA0
+	lda	#$F1		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EB		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EE		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F0		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @or_bot_inv:
+	lda	#$E8		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$ED		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EF		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EA		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	VERA_DATA0
+	lda	VERA_DATA0
+	lda	#$F1		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EC		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EE		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F0		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @or_both_inv:
+	lda	#$E9		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$ED		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EF		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EA		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	VERA_DATA0
+	lda	VERA_DATA0
+	lda	#$F1		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EC		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EE		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F0		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @nor_gate:
+	lda	#$E8		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$ED		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EF		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EA		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	VERA_DATA0
+	lda	VERA_DATA0
+	lda	#$F2		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EB		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EE		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F0		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @nor_top_inv:
+	lda	#$E9		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$ED		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EF		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EA		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	VERA_DATA0
+	lda	VERA_DATA0
+	lda	#$F2		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EB		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EE		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F0		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @nor_bot_inv:
+	lda	#$E8		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$ED		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EF		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EA		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	VERA_DATA0
+	lda	VERA_DATA0
+	lda	#$F2		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EC		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EE		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F0		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @nor_both_inv:
+	lda	#$E9		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$ED		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EF		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EA		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	VERA_DATA0
+	lda	VERA_DATA0
+	lda	#$F2		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EC		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EE		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F0		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @xor_gate:
+	lda	#$F3		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F7		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EF		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EA		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F9
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F1		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$F5		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F8		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F0		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @xor_top_inv:
+	lda	#$F4		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F7		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EF		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EA		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F9
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F1		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$F5		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F8		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F0		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @xor_bot_inv:
+	lda	#$F3		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F7		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EF		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EA		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F9
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F1		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$F6		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F8		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F0		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @xor_both_inv:
+	lda	#$F4		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F7		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EF		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EA		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F9
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F1		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$F6		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F8		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F0		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @xnor_gate:
+	lda	#$F3		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F7		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EF		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EA		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F9
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F2		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$F5		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F8		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F0		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @xnor_top_inv:
+	lda	#$F4		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F7		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EF		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EA		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F9
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F2		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$F5		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F8		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F0		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @xnor_bot_inv:
+	lda	#$F3		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F7		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EF		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EA		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F9
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F2		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$F6		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F8		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F0		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @xnor_both_inv:
+	lda	#$F4		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F7		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$EF		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$EA		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F9
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F2		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$F6		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F8		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$F0		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @not_gate:
+	lda	#$FA
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$FC
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$FE
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$43
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$FB
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @output:
-
+	inc	VERA_ADDR_M
+	lda	#$43
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$FF
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
 @draw_table:
 	!word	@input_off:
 	!word	@input_on:
