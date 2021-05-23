@@ -26,7 +26,15 @@ Hell11:		!PET			"**  **  **      **      **      ",0
 Hell12:		!PET			"**  **  **      **      **      ",0
 Hell13:		!PET			"**  **  ******  ******  ******  ",0
 
-Choose:		!PET PET_WHITE,		"Do you want to play this game? (Yes/No/Other)"
+Choose:		!PET PET_WHITE,		"do you want to play this game? (yes/no/other)",0
+
+Create0:	!PET PET_PURPLE,	" *****   *****   ******     *     ******  ******  ****   ",0
+Create1:	!PET PET_LIGHTBLUE,	"**   **  **  **  **       ** **     **    **      ** **  ",0
+Create2:	!PET PET_CYAN,		"**       **  **  **      **   **    **    **      **  ** ",0
+Create3:	!PET PET_GREEN,		"**       *****   ****    *******    **    ****    **  ** ",0
+Create4:	!PET PET_YELLOW,	"**       ****    **      **   **    **    **      **  ** ",0
+Create5:	!PET PET_ORANGE,	"**   **  ** **   **      **   **    **    **      ** **  ",0
+Create6:	!PET PET_RED,		" *****   **  **  ******  **   **    **    ******  ****   ",0
 
 Chars:
 ; ******************* AND/NAND *************************
