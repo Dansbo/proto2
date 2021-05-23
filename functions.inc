@@ -65,5 +65,167 @@ Print_Str:
 @Printdone
 	rts
 
+;******************************************************************************
+; Function to draw a gate-tile at specific coordinates.
+;******************************************************************************
+; INPUTS:	.X & .Y - Coordinates of top left corner of gate-tile
+;		.A - Type of Gate
+;	$00 - Input, OFF
+;	$02 - Input, ON
+;	$04 - AND gate
+;	$06 - AND gate inverted top input
+;	$08 - AND gate inverted botoom input
+;	$0A - AND gate both inputs inverted
+;	$0C - NAND gate
+;	$0E - NAND gate inverted top input
+;	$10 - NAND gate inverted bottom input
+;	$12 - NAND gate both inputs inverted
+;	$14 - OR gate
+;	$16 - OR gate inverted top input
+;	$18 - OR gate inverted bottom input
+;	$1A - OR gate both inputs inverted
+;	$1C - NOR gate
+;	$1E - NOR gate inverted top input
+;	$20 - NOR gate inverted bottom input
+;	$22 - NOR gate both inputs inverted
+;	$24 - XOR gate
+;	$26 - XOR gate inverted top input
+;	$28 - XOR gate inverted bottom input
+;	$2A - XOR gate both inputs inverted
+;	$2C - XNOR gate
+;	$2E - XNOR gate inverted top input
+;	$30 - XNOR gate inverted bottom input
+;	$32 - XNOR gate both inputs inverted
+;	$34 - NOT gate (nverter)
+;	$36 - Output
+;******************************************************************************
+draw_gate:
+	pha
+	+VERA_SET_STRIDE 1
+	txa
+	asl
+	sta	VERA_ADDR_L
+	sty	VERA_ADDR_M
+	ply
+	lda	@draw_table,y
+	sta	TMP_PTR0
+	lda	@draw_table+1,y
+	sta	TMP_PTR0+1
+	ldx	#(GREEN<<4)|BLACK
+	ldy	VERA_ADDR_L
+	jmp	(TMP_PTR0)
+
+@input_off:
+	inc	VERA_ADDR_M
+	inc	VERA_ADDR_L
+	inc	VERA_ADDR_L
+	lda	#$FF
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$43
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
+@input_on:
+	inc	VERA_ADDR_M
+	inc	VERA_ADDR_L
+	inc	VERA_ADDR_L
+	lda	#$FF
+	sta	VERA_DATA0
+	lda	#(GREEN<<4)|YELLOW
+	sta	VERA_DATA0
+	lda	#$43
+	sta	VERA_DATA0
+	lda	#(GREEN<<4)|YELLOW
+	sta	VERA_DATA0
+	rts
+@and_gate:
+	lda	#$DD		; Top Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E2		; Top middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E4		; Top right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#$DF		; Middle left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	VERA_DATA0
+	lda	VERA_DATA0
+	lda	#$E6		; Middle right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	inc	VERA_ADDR_M
+	sty	VERA_ADDR_L
+	lda	#E0		; Bottom Left
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#$E3		; Bottom middle
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	lda	#E5		; Bottom Right
+	sta	VERA_DATA0
+	stx	VERA_DATA0
+	rts
+@and_top_inv:
+@and_bot_inv:
+@and_both_inv:
+@nand_gate:
+@nand_top_inv:
+@nand_bot_inv:
+@nand_both_inv:
+@or_gate:
+@or_top_inv:
+@or_bot_inv:
+@or_both_inv:
+@nor_gate:
+@nor_top_inv:
+@nor_bot_inv:
+@nor_both_inv:
+@xor_gate:
+@xor_top_inv:
+@xor_bot_inv:
+@xor_both_inv:
+@xnor_gate:
+@xnor_top_inv:
+@xnor_bot_inv:
+@xnor_both_inv:
+@not_gate:
+@output:
+
+@draw_table:
+	!word	@input_off:
+	!word	@input_on:
+	!word	@and_gate:
+	!word	@and_top_inv:
+	!word	@and_bot_inv:
+	!word	@and_both_inv:
+	!word	@nand_gate:
+	!word	@nand_top_inv:
+	!word	@nand_bot_inv:
+	!word	@nand_both_inv:
+	!word	@or_gate:
+	!word	@or_top_inv:
+	!word	@or_bot_inv:
+	!word	@or_both_inv:
+	!word	@nor_gate:
+	!word	@nor_top_inv:
+	!word	@nor_bot_inv:
+	!word	@nor_both_inv:
+	!word	@xor_gate:
+	!word	@xor_top_inv:
+	!word	@xor_bot_inv:
+	!word	@xor_both_inv:
+	!word	@xnor_gate:
+	!word	@xnor_top_inv:
+	!word	@xnor_bot_inv:
+	!word	@xnor_both_inv:
+	!word	@not_gate:
+	!word	@output:
+	rts
 
 Functions_end:
