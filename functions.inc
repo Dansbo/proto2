@@ -116,31 +116,44 @@ reset_game_grid:
 ; OUTPUTS:	.C set if level not found otherwise LEVEL_PTR will point to
 ;		the level.
 ;******************************************************************************
-find_level:!byte $db
+find_level:
+	; Load level pointer with start of levels
 	lda	#<LEVELS
 	sta	LEVEL_PTR
 	lda	#>LEVELS
 	sta	LEVEL_PTR+1
 
 @get_next:
+	; Decrement level, if we have reached 0, check that it is a level
 	dey
 	beq	@end
 	+INC16 LEVEL_PTR	; Skip PAR value
 @next_tile:
-	lda	(LEVEL_PTR)
-	cmp	#$0F
+	lda	(LEVEL_PTR)	; Load X coordinate of tile
+	cmp	#$FF
+	beq	@end
+	cmp	#$0F		; If it is $0F, we have reached end of level
 	bne	+
+	; Add 2 to pointer to point to beginning of next level
 	+ADD16 LEVEL_PTR, 2
 	bra	@get_next
-+	+ADD16 LEVEL_PTR, 6
++	+ADD16 LEVEL_PTR, 6	; Add $06 to pointer to get to next tile
 	bra	@next_tile
 @end:
-	clc
 	lda	(LEVEL_PTR)
-	cmp	#$FF
-	bne	+
-	sec
-+	rts
+	cmp	#$FF		; Sets .C if .A >= to $FF
+	rts
+
+;******************************************************************************
+; Count all levels and return the total number of levels in .A
+;******************************************************************************
+get_num_levels:
+	ldy	#$FF		; Try to load more levels than exist
+	jsr	find_level
+	tya
+	eor	#$FF		; Invert number
+	dec
+	rts
 
 ;******************************************************************************
 ; Loads a specific level
@@ -149,8 +162,9 @@ find_level:!byte $db
 ;******************************************************************************
 load_level:
 	jsr	find_level
+	bcs	@end
 
-
+@end:
 	rts
 
 ;******************************************************************************

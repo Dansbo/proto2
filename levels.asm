@@ -131,4 +131,4 @@ Levels:
 	!byte	$0F,$06
 
 End_of_levels:
-	!byte	$FF
+	!byte	$FF,$FF
