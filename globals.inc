@@ -6,6 +6,8 @@ GAME_GRID_COLOR=(GREEN<<4)|BLACK
 GAME_GRID_X_WIDTH=16
 GAME_GRID_Y_WIDTH=16
 
+Levels=LEVEL_BIN+2
+
 Title0:		!PET PET_PURPLE,	"*****   *****    ****   ******   ****    **  **   ****  ",0
 Title1: 	!PET PET_LIGHTBLUE,	"**  **  **  **  **  **    **    **  **   **  **  **  ** ",0
 Title2: 	!PET PET_CYAN,		"**  **  **  **  **  **    **    **  **  ********     ** ",0

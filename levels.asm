@@ -1,4 +1,4 @@
-	jmp	Levels_inc
+*=$A000
 
 ; The game uses a board that is 16x16 fields. When designing a level there
 ; are certain rules that must be followed.
@@ -127,4 +127,5 @@ Levels:
 	!byte	$07,$06,$04,$05,$06,$01
 	!byte	$05,$06
 
-Levels_inc:
+End_of_levels:
+	!byte	$FF

@@ -16,3 +16,7 @@ main:
 	jsr Init_VERA
 	jsr Print_Title
 	rts
+
+
+
+LEVEL_BIN	!bin	"LEVELS.BIN"
