@@ -1,5 +1,8 @@
 	jmp globals_end
 
+GAME_GRID_TOP_LEFT_X=20
+GAME_GRID_TOP_LEFT_Y=10
+
 Title0:		!PET PET_PURPLE,	"*****   *****    ****   ******   ****    **  **   ****  ",0
 Title1: 	!PET PET_LIGHTBLUE,	"**  **  **  **  **  **    **    **  **   **  **  **  ** ",0
 Title2: 	!PET PET_CYAN,		"**  **  **  **  **  **    **    **  **  ********     ** ",0
