@@ -92,17 +92,65 @@ reset_game_grid:
 	bne	@yloop
 	rts
 
+!macro INC16 .wrd {
+	inc	.wrd
+	bne	+
+	inc	.wrd+1
++
+}
+
+!macro ADD16 .wrd, .val {
+	lda	.wrd
+	clc
+	adc	#.val
+	sta	.wrd
+	lda	.wrd+1
+	adc	#0
+	sta	.wrd+1
+}
+
+;******************************************************************************
+; Find a specific level
+;******************************************************************************
+; INPUTS:	.Y = Level to be loaded (1=first level)
+; OUTPUTS:	.C set if level not found otherwise LEVEL_PTR will point to
+;		the level.
+;******************************************************************************
+find_level:!byte $db
+	lda	#<LEVELS
+	sta	LEVEL_PTR
+	lda	#>LEVELS
+	sta	LEVEL_PTR+1
+
+@get_next:
+	dey
+	beq	@end
+	+INC16 LEVEL_PTR	; Skip PAR value
+@next_tile:
+	lda	(LEVEL_PTR)
+	cmp	#$0F
+	bne	+
+	+ADD16 LEVEL_PTR, 2
+	bra	@get_next
++	+ADD16 LEVEL_PTR, 6
+	bra	@next_tile
+@end:
+	clc
+	lda	(LEVEL_PTR)
+	cmp	#$FF
+	bne	+
+	sec
++	rts
+
 ;******************************************************************************
 ; Loads a specific level
 ;******************************************************************************
 ; INPUTS:	.Y = Level to be loaded (1=first level)
 ;******************************************************************************
 load_level:
-	lda	#<LEVELS
-	sta	LEVEL_PTR
-	lda	#>LEVELS
-	sta	LEVEL_PTR+1
-	
+	jsr	find_level
+
+
 	rts
 
 ;******************************************************************************
