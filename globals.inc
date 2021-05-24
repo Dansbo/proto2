@@ -2,6 +2,9 @@
 
 GAME_GRID_TOP_LEFT_X=20
 GAME_GRID_TOP_LEFT_Y=10
+GAME_GRID_COLOR=(GREEN<<4)|BLACK
+GAME_GRID_X_WIDTH=16
+GAME_GRID_Y_WIDTH=16
 
 Title0:		!PET PET_PURPLE,	"*****   *****    ****   ******   ****    **  **   ****  ",0
 Title1: 	!PET PET_LIGHTBLUE,	"**  **  **  **  **  **    **    **  **   **  **  **  ** ",0

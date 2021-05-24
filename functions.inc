@@ -66,6 +66,33 @@ Print_Str:
 	rts
 
 ;******************************************************************************
+; Repaints the entire gamegrid with value in GAME_GRID_COLOR
+;******************************************************************************
+reset_game_grid:
+	lda	#$10
+	sta	VERA_ADDR_H	; Increment by 1, High addr = 0
+	lda	#GAME_GRID_TOP_LEFT_Y
+	sta	VERA_ADDR_M
+	lda	#GAME_GRID_TOP_LEFT_X<<1
+	sta	VERA_ADDR_L
+
+	ldy	#(GAME_GRID_Y_WIDTH*3)
+@yloop:
+	ldx	#(GAME_GRID_X_WIDTH*3)
+@xloop:	lda	#' '
+	sta	VERA_DATA0
+	lda	#GAME_GRID_COLOR
+	sta	VERA_DATA0
+	dex
+	bne	@xloop
+	inc	VERA_ADDR_M
+	lda	#GAME_GRID_TOP_LEFT_X<<1
+	sta	VERA_ADDR_L
+	dey
+	bne	@yloop
+	rts
+
+;******************************************************************************
 ; Function to draw a gate-tile at specific coordinates.
 ;******************************************************************************
 ; INPUTS:	.X & .Y - Coordinates of top left corner of gate-tile
