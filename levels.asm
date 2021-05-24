@@ -2,13 +2,14 @@
 
 ; The game uses a board that is 16x16 fields. When designing a level there
 ; are certain rules that must be followed.
-; 1: Tiles in column 0 (Y=0) can only be of the Input type, either on or off
-; 2: There can only be a single tile in column F (Y=F).
-; 3: The tile in column F can only be output so the type is not defined in
+; 1: First byte in a level is the par (=minimum number of moves to solve level)
+; 2: Tiles in column 0 (Y=0) can only be of the Input type, either on or off
+; 3: There can only be a single tile in column F (Y=F).
+; 4: The tile in column F can only be output so the type is not defined in
 ;    the level
-; 4: All inputs and outputs must be connected.
-; 5: Levels must be designed so no wires cross
-; 6: Coordinates for the Output tile in column F must be the last  in a level
+; 5: All inputs and outputs must be connected.
+; 6: Levels must be designed so no wires cross
+; 7: Coordinates for the Output tile in column F must be the last in a level
 
 ;   Representation of the game board
 ;     0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
@@ -82,7 +83,7 @@
 ;	2 - Bottom
 
 ; When defining a level for the games, it is done be defining tiles and their
-; placement on the board.
+; placement on the board, but first defining par (=minimum number of moves).
 ; For each tile, the following information must be defined.
 ; * X coordinate of tile on game board (0-F)
 ; * Y coordinate of tile on game board (0-F)
@@ -92,6 +93,7 @@
 ; * Input placment on tile connected to this tile-output
 
 ;   Example level with two inputs, 1 On and 1 off, an AND gate and an output
+;	!byte	$01	; 1 move can solve this level
 	; First Input
 ;	!byte	$00	; X coordinate of tile
 ;	!byte	$05	; Y coordinate of tile
@@ -121,11 +123,12 @@
 ;	***** This is the end of a level
 Levels:
 	; Level 1 - 2 off inputs, 1 AND gate
+	!byte	$02	; 2 moves to solve level
  ;		 X   Y  Type X   Y   Input
 	!byte	$00,$05,$00,$07,$06,$00
 	!byte	$00,$07,$00,$07,$06,$02
 	!byte	$07,$06,$04,$05,$06,$01
-	!byte	$05,$06
+	!byte	$0F,$06
 
 End_of_levels:
 	!byte	$FF

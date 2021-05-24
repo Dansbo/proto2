@@ -93,6 +93,19 @@ reset_game_grid:
 	rts
 
 ;******************************************************************************
+; Loads a specific level
+;******************************************************************************
+; INPUTS:	.Y = Level to be loaded (1=first level)
+;******************************************************************************
+load_level:
+	lda	#<LEVELS
+	sta	LEVEL_PTR
+	lda	#>LEVELS
+	sta	LEVEL_PTR+1
+	
+	rts
+
+;******************************************************************************
 ; Function to draw a gate-tile at specific coordinates.
 ;******************************************************************************
 ; INPUTS:	.X & .Y - Coordinates of top left corner of gate-tile
