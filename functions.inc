@@ -156,13 +156,81 @@ get_num_levels:
 	rts
 
 ;******************************************************************************
+; Multiply coordinate by 3
+;******************************************************************************
+!macro CALC_SCREEN_COORD .coord {
+	sta	.coord		; Store coordinate
+	asl			; Double coordinate
+	clc
+	adc	.coord		; Add original coordinate
+}
+
+;******************************************************************************
 ; Loads a specific level
 ;******************************************************************************
 ; INPUTS:	.Y = Level to be loaded (1=first level)
 ;******************************************************************************
 load_level:
+@INPUT_CNT=TMP0
+@X_COORD=TMP1
+@Y_COORD=TMP2
+@GRID_X=TMP3
+	lda	#$10			; Make VERA increment by 1
+	sta	VERA_ADDR_H
+
+	lda	#$30			; PETSCII 0 in @INPUT_CNT
+	sta	@INPUT_CNT
+
 	jsr	find_level
 	bcs	@end
+	lda	(LEVEL_PTR)		; Read level PAR and store
+	sta	Level_par
+
+@load_tile:
+	+INC16	LEVEL_PTR
+	lda	(LEVEL_PTR)		; Load current tile X coordinate
+	sta	@GRID_X
+	+CALC_SCREEN_COORD @X_COORD	; Calculate screen coordinate
+	adc	#GAME_GRID_TOP_LEFT_X	; Add Game grid offset
+	sta	@X_COORD
+	+INC16	LEVEL_PTR
+	lda	(LEVEL_PTR)		; Load current tile Y coordinate
+	+CALC_SCREEN_COORD @Y_COORD	; Calculate screen coordinate
+	adc	#GAME_GRID_TOP_LEFT_Y	; add game grid offset
+	sta	@Y_COORD
+
+	lda	@GRID_X
+	cmp	#$0F
+	bne	+
+	; Handling of the last tile
+	ldx	@X_COORD
+	ldy	@Y_COORD
+	lda	#$36
+	jmp	draw_gate		; return to caller after this
+
++	+INC16 LEVEL_PTR
+	lda	(LEVEL_PTR)		; Load current tile type
+	cmp	#00			; If it is input, we write input no.
+	beq	@write_input_no
+	cmp	#02
+	beq	@write_input_no
+	bra	@place_tile
+@write_input_no:
+	lda	@X_COORD		; Load x coodinate and subtract 1 to
+	dec				; write the number to the left of the
+	asl				; tile
+	sta	VERA_ADDR_L
+	lda	@Y_COORD		; Load y coordinate and increment to
+	inc				; write the number mid of tile
+	sta	VERA_ADDR_M
+	inc	@INPUT_CNT		; Increment the input count and write it
+	lda	@INPUT_CNT
+	sta	VERA_DATA0
+@place_tile:
+	ldx	@X_COORD
+	ldy	@Y_COORD
+	lda	(LEVEL_PTR)
+	jsr	draw_gate
 
 @end:
 	rts
