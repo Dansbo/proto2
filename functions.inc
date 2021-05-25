@@ -156,6 +156,21 @@ get_num_levels:
 	rts
 
 ;******************************************************************************
+; Figure out the route from a tile output to a tile input and draw the wire
+;******************************************************************************
+; INPUTS:	TMP1 & TMP2 = X&Y coordinates for starting tile
+;		TMP4 & TMP5 = X&Y coordinates for next tile
+;		TMP6 = Input number on next tile
+;******************************************************************************
+draw_wire:
+@X_COORD=TMP1
+@Y_COORD=TMP2
+@NEXT_X=TMP4
+@NEXT_Y=TMP5
+@NEXT_I=TMP6
+	rts
+
+;******************************************************************************
 ; Multiply coordinate by 3
 ;******************************************************************************
 !macro CALC_SCREEN_COORD .coord {
@@ -175,6 +190,9 @@ load_level:
 @X_COORD=TMP1
 @Y_COORD=TMP2
 @GRID_X=TMP3
+@NEXT_X=TMP4
+@NEXT_Y=TMP5
+@NEXT_I=TMP6
 	lda	#$10			; Make VERA increment by 1
 	sta	VERA_ADDR_H
 
@@ -182,7 +200,7 @@ load_level:
 	sta	@INPUT_CNT
 
 	jsr	find_level
-	bcs	@end
+	+FBCS	@end
 	lda	(LEVEL_PTR)		; Read level PAR and store
 	sta	Level_par
 
@@ -232,6 +250,17 @@ load_level:
 	lda	(LEVEL_PTR)
 	jsr	draw_gate
 
+	+INC16 LEVEL_PTR
+	lda	(LEVEL_PTR)
+	sta	@NEXT_X
+	+INC16 LEVEL_PTR
+	lda	(LEVEL_PTR)
+	sta	@NEXT_Y
+	+INC16	LEVEL_PTR
+	lda	(LEVEL_PTR)
+	sta	@NEXT_I
+	jsr	draw_wire
+	jmp	@load_tile
 @end:
 	rts
 

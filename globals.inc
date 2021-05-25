@@ -9,7 +9,7 @@ GAME_GRID_Y_WIDTH=16
 LEVELS=LEVEL_BIN+2
 LEVEL_PTR=TMP_PTR7
 
-Level_par	!byte	$00
+Level_par:	!byte	$00
 
 Title0:		!PET PET_PURPLE,	"*****   *****    ****   ******   ****    **  **   ****  ",0
 Title1: 	!PET PET_LIGHTBLUE,	"**  **  **  **  **  **    **    **  **   **  **  **  ** ",0
