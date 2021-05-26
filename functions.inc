@@ -160,6 +160,16 @@ get_num_levels:
 	rts
 
 ;******************************************************************************
+; Multiply coordinate by 3
+;******************************************************************************
+!macro CALC_SCREEN_COORD .coord {
+	sta	.coord		; Store coordinate
+	asl			; Double coordinate
+	clc
+	adc	.coord		; Add original coordinate
+}
+
+;******************************************************************************
 ; Figure out the route from a tile output to a tile input and draw the wire
 ;******************************************************************************
 ; INPUTS:	TMP1 & TMP2 = X&Y coordinates for starting tile
@@ -172,18 +182,80 @@ draw_wire:
 @NEXT_X=TMP4
 @NEXT_Y=TMP5
 @NEXT_I=TMP6
+	lda	@NEXT_X
+	+CALC_SCREEN_COORD @NEXT_X	; Calculate X coordinate of next tile
+	adc	#GAME_GRID_TOP_LEFT_X
+	dec				; Decrement as wire should end before tile
+	asl				; Double to get actual VERA memory address
+	sta	@NEXT_X
+	lda	@NEXT_Y
+	+CALC_SCREEN_COORD @NEXT_Y	; Caluclate Y coordinate of next tile
+	adc	#GAME_GRID_TOP_LEFT_Y
+	adc	@NEXT_I			; Add input-no to get coord of input
+	sta	@NEXT_Y
 
-	rts
-
-;******************************************************************************
-; Multiply coordinate by 3
-;******************************************************************************
-!macro CALC_SCREEN_COORD .coord {
-	sta	.coord		; Store coordinate
-	asl			; Double coordinate
+	; Calculate coordinate of output for originating tile
+	lda	@X_COORD		; Screen coordinate
 	clc
-	adc	.coord		; Add original coordinate
-}
+	adc	#3			; Add 3 to get to tile to the right
+	asl				; Double to get vera memory address
+	tax
+	ldy	@Y_COORD		; Screen coordinate
+	iny				; Add 1 to Tile Y coord to get output coord.
+	sty	VERA_ADDR_M
+
+	lda	#$43			; Horizontal line
+@horizontal:
+	cpx	@NEXT_X
+	beq	@start_vertical
+	sta	VERA_DATA0
+	inc	VERA_ADDR_L
+	inx
+	inx
+	bra	@horizontal
+@start_vertical:
+	cpy	@NEXT_Y
+	beq	@end			; If Y coordinates are the same, we are done
+	dec	VERA_ADDR_L
+	dec	VERA_ADDR_L
+	bcs	+
+	lda	#$6E
+	sta	VERA_DATA0
+	dec	VERA_ADDR_L
+	lda	#$5D
+	bra	@vertical_down
++	lda	#$7D
+	sta	VERA_DATA0
+	lda	#$5D
+	dec	VERA_ADDR_L
+@vertical_up:
+	dec	VERA_ADDR_M
+	dey
+	cpy	@NEXT_Y
+	bne	+
+	lda	#$70
+	sta	VERA_DATA0
+	inc	VERA_ADDR_L
+	bra	@end
++	sta	VERA_DATA0
+	dec	VERA_ADDR_L
+	bra	@vertical_up
+@vertical_down:
+	inc	VERA_ADDR_M
+	iny
+	cpy	@NEXT_Y
+	bne	+
+	lda	#$6D
+	sta	VERA_DATA0
+	inc	VERA_ADDR_L
+	bra	@end
++	sta	VERA_DATA0
+	dec	VERA_ADDR_L
+	bra	@vertical_down
+@end:
+	lda	#$43			; Write the last part of the line
+	sta	VERA_DATA0
+	rts
 
 ;******************************************************************************
 ; Loads a specific level
@@ -198,6 +270,7 @@ load_level:
 @NEXT_X=TMP4
 @NEXT_Y=TMP5
 @NEXT_I=TMP6
+
 	lda	#$10			; Make VERA increment by 1
 	sta	VERA_ADDR_H
 
@@ -312,12 +385,12 @@ draw_gate:
 	sty	VERA_ADDR_M
 	ply
 	lda	@draw_table,y
-	sta	TMP_PTR0
+	sta	TMP_PTR6
 	lda	@draw_table+1,y
-	sta	TMP_PTR0+1
+	sta	TMP_PTR6+1
 	ldx	#(GREEN<<4)|BLACK
 	ldy	VERA_ADDR_L
-	jmp	(TMP_PTR0)
+	jmp	(TMP_PTR6)
 
 @input_off:
 	inc	VERA_ADDR_M
