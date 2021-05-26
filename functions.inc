@@ -92,6 +92,9 @@ reset_game_grid:
 	bne	@yloop
 	rts
 
+;******************************************************************************
+; Increment 16 bit memory location
+;******************************************************************************
 !macro INC16 .wrd {
 	inc	.wrd
 	bne	+
@@ -99,6 +102,9 @@ reset_game_grid:
 +
 }
 
+;******************************************************************************
+; Add #.val to 16 bit memory location
+;******************************************************************************
 !macro ADD16 .wrd, .val {
 	lda	.wrd
 	clc
@@ -187,70 +193,66 @@ draw_wire:
 	adc	#GAME_GRID_TOP_LEFT_X
 	dec				; Decrement as wire should end before tile
 	asl				; Double to get actual VERA memory address
-	sta	@NEXT_X
+	tax				; Save X coord to go to in .X
 	lda	@NEXT_Y
 	+CALC_SCREEN_COORD @NEXT_Y	; Caluclate Y coordinate of next tile
 	adc	#GAME_GRID_TOP_LEFT_Y
 	adc	@NEXT_I			; Add input-no to get coord of input
-	sta	@NEXT_Y
+	tay				; Save Y coord to go to in .Y
 
 	; Calculate coordinate of output for originating tile
 	lda	@X_COORD		; Screen coordinate
 	clc
 	adc	#3			; Add 3 to get to tile to the right
 	asl				; Double to get vera memory address
-	tax
-	ldy	@Y_COORD		; Screen coordinate
-	iny				; Add 1 to Tile Y coord to get output coord.
-	sty	VERA_ADDR_M
+	sta	VERA_ADDR_L
+	lda	@Y_COORD		; Screen coordinate
+	inc				; Add 1 to Tile Y coord to get output coord.
+	sta	VERA_ADDR_M
 
 	lda	#$43			; Horizontal line
 @horizontal:
-	cpx	@NEXT_X
+	cpx	VERA_ADDR_L		; If VERA X = @NEXT_X it is time to go vertical
 	beq	@start_vertical
-	sta	VERA_DATA0
-	inc	VERA_ADDR_L
-	inx
-	inx
+	sta	VERA_DATA0		; Draw horizontal line
+	inc	VERA_ADDR_L		; Skip color information
 	bra	@horizontal
 @start_vertical:
-	cpy	@NEXT_Y
+	cpy	VERA_ADDR_M
 	beq	@end			; If Y coordinates are the same, we are done
+	dec	VERA_ADDR_L		; Reset VERA X coordinate
 	dec	VERA_ADDR_L
-	dec	VERA_ADDR_L
-	bcs	+
-	lda	#$6E
+	bcc	+
+	lda	#$6E			; Write corner
 	sta	VERA_DATA0
-	dec	VERA_ADDR_L
+	dec	VERA_ADDR_L		; Reset VERA X coordinate
 	lda	#$5D
 	bra	@vertical_down
-+	lda	#$7D
++	lda	#$7D			; Write corner
 	sta	VERA_DATA0
+	dec	VERA_ADDR_L		; Reset VERA X Coordinate
 	lda	#$5D
-	dec	VERA_ADDR_L
 @vertical_up:
 	dec	VERA_ADDR_M
-	dey
-	cpy	@NEXT_Y
+	cpy	VERA_ADDR_M		; If we have reached Y coord of target, we are done
 	bne	+
-	lda	#$70
+	lda	#$70			; Corner
 	sta	VERA_DATA0
-	inc	VERA_ADDR_L
+	inc	VERA_ADDR_L		; Skip color
 	bra	@end
-+	sta	VERA_DATA0
-	dec	VERA_ADDR_L
++	sta	VERA_DATA0		; Vertical line
+	dec	VERA_ADDR_L		; Reset VERA X coordinate
 	bra	@vertical_up
 @vertical_down:
 	inc	VERA_ADDR_M
-	iny
-	cpy	@NEXT_Y
+	cpy	VERA_ADDR_M		; If we have reached Y coord of target, we are done
 	bne	+
-	lda	#$6D
+	lda	#$6D			; Corner
 	sta	VERA_DATA0
-	inc	VERA_ADDR_L
+	inc	VERA_ADDR_L		; Skip color
 	bra	@end
-+	sta	VERA_DATA0
-	dec	VERA_ADDR_L
++	sta	VERA_DATA0		; Vertical line
+	dec	VERA_ADDR_L		; Reset VERA X coordinate
 	bra	@vertical_down
 @end:
 	lda	#$43			; Write the last part of the line
