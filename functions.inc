@@ -113,8 +113,8 @@ reset_game_grid:
 ; Find a specific level
 ;******************************************************************************
 ; INPUTS:	.Y = Level to be loaded (1=first level)
-; OUTPUTS:	.C set if level not found otherwise LEVEL_PTR will point to
-;		the level.
+; OUTPUTS:	.C set if level not found otherwise Cur_level_ptr and LEVEL_PTR
+;		will point to the level.
 ;******************************************************************************
 find_level:
 	; Load level pointer with start of levels
@@ -140,6 +140,10 @@ find_level:
 +	+ADD16 LEVEL_PTR, 6	; Add $06 to pointer to get to next tile
 	bra	@next_tile
 @end:
+	lda	LEVEL_PTR
+	sta	Cur_level_ptr
+	lda	LEVEL_PTR+1
+	sta	Cur_level_ptr+1
 	lda	(LEVEL_PTR)
 	cmp	#$FF		; Sets .C if .A >= to $FF
 	rts
@@ -168,6 +172,7 @@ draw_wire:
 @NEXT_X=TMP4
 @NEXT_Y=TMP5
 @NEXT_I=TMP6
+
 	rts
 
 ;******************************************************************************
