@@ -4,8 +4,10 @@
 +SYS_LINE
 
 !src "vera0.9.inc"
+!src "farbranch.inc"
 !src "globals.inc"
 !src "functions.inc"
+!src "levelfuncs.inc"
 !src "TextUI.inc"
 
 ;******************************************************************************
@@ -16,10 +18,7 @@ main:
 	jsr Init_VERA
 	jsr Print_Title
 
-	jsr	reset_game_grid
-	ldy	#1
-!byte $db
-	jsr	load_level
+
 	rts
 
 
