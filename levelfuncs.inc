@@ -24,6 +24,16 @@
 }
 
 ;******************************************************************************
+; Multiply coordinate by 3
+;******************************************************************************
+!macro CALC_SCREEN_COORD .coord {
+	sta	.coord		; Store coordinate
+	asl			; Double coordinate
+	clc
+	adc	.coord		; Add original coordinate
+}
+
+;******************************************************************************
 ; Find a specific level
 ;******************************************************************************
 ; INPUTS:	.Y = Level to be loaded (1=first level)
@@ -74,14 +84,74 @@ get_num_levels:
 	rts
 
 ;******************************************************************************
-; Multiply coordinate by 3
+; Change the color of a wire
 ;******************************************************************************
-!macro CALC_SCREEN_COORD .coord {
-	sta	.coord		; Store coordinate
-	asl			; Double coordinate
+; INPUTS:	.A = BG/FG color to use
+;		.X and .Y = coordinates where line is beginning
+;******************************************************************************
+color_wire:
+	sty	VERA_ADDR_M	; Write Y coordinate to VERA
+	tay			; Save color information in .Y
+	stz	VERA_ADDR_H	; No increment
+	txa			; Calculate VERA address from X coordinate
+	asl
+	sta	VERA_ADDR_L
+
+@loop:	lda	VERA_DATA0	; Load character
+	inc	VERA_ADDR_L	; Prepare to change color
+	cmp	#$43
+	bne	@not_horiz
+	; Horizontal
+	sty	VERA_DATA0	; Change color
+	inc	VERA_ADDR_L	; Next character
+	bra	@loop
+@not_horiz:
+	cmp	#$5D
+	bne	@not_vert
+	; Vertical
+	sty	VERA_DATA0	; Change color
+	dec	VERA_ADDR_L	; Go back to character
 	clc
-	adc	.coord		; Add original coordinate
-}
+	lda	VERA_ADDR_M
+	adc	TMP0
+	sta	VERA_ADDR_M
+	bra	@loop
+@not_vert:
+	cmp	#$70
+	bne	@not_top_left
+	; Top Left Corner
+	sty	VERA_DATA0	; Change color
+	inc	VERA_ADDR_L
+	bra	@loop
+@not_top_left:
+	cmp	#$6D
+	bne	@not_bottom_left
+	; Bottom Left Corner
+	sty	VERA_DATA0	; Change color
+	inc	VERA_ADDR_L
+	bra	@loop
+@not_bottom_left:
+	cmp	#$6E
+	bne	@not_top_right
+	; Top Right Corner
+	sty	VERA_DATA0	; Change color
+	dec	VERA_ADDR_L
+	lda	#$01
+	sta	TMP0
+	inc	VERA_ADDR_M
+	bra	@loop
+@not_top_right:
+	cmp	#$7D
+	bne	@not_bottom_right
+	; Bottom Right Corner
+	sty	VERA_DATA0	; Change color
+	dec	VERA_ADDR_L
+	lda	#$FF
+	sta	TMP0
+	dec	VERA_ADDR_M
+	bra	@loop
+@not_bottom_right:
+	rts
 
 ;******************************************************************************
 ; Figure out the route from a tile output to a tile input and draw the wire
@@ -168,6 +238,64 @@ draw_wire:
 	rts
 
 ;******************************************************************************
+; Cycle through all non-input gates, check their truth-table and update output
+; wire accordingly.
+;******************************************************************************
+;******************************************************************************
+check_gates:
+	rts
+
+;******************************************************************************
+; Cycle through all inputs and ensure the connected wire is the same color
+;******************************************************************************
+check_inputs:
+@X_COORD=TMP1
+@Y_COORD=TMP2
+	lda	Cur_level_ptr
+	sta	LEVEL_PTR
+	lda	Cur_level_ptr+1
+	sta	LEVEL_PTR+1
+	+INC16 LEVEL_PTR		; Skip PAR value
+@loop:	lda	(LEVEL_PTR)
+	cmp	#$0F			; If tile x coordinate is $F we are done
+	beq	@end
+	sta	@X_COORD		; Save X coordinate
+	+INC16 LEVEL_PTR
+	lda	(LEVEL_PTR)
+	sta	@Y_COORD		; Save Y coordinate
+	+INC16 LEVEL_PTR
+	lda	(LEVEL_PTR)		; Read gate type
+	cmp	#$00			; If it is $00 or $02 it is an input
+	beq	@input_found
+	cmp	#$02
+	beq	@input_found
+	+ADD16 LEVEL_PTR, 4		; Otherwise prepare for next gate
+	bra	@loop			; Check next gate
+@input_found:
+	; Calculate screen X coordinates for wire start
+	lda	@X_COORD
+	+CALC_SCREEN_COORD @X_COORD
+	adc	#GAME_GRID_TOP_LEFT_X+3
+	tax				; Save in .X for color_wire function
+	; Calculate VERA X address for tile to read color
+	dec				; Right most char of tile
+	asl				; Convert to VERA mem addr
+	inc				; Inc to get color address
+	sta	VERA_ADDR_L
+	; Calculate screen Y coordinate for wire start
+	lda	@Y_COORD
+	+CALC_SCREEN_COORD @Y_COORD
+	adc	#GAME_GRID_TOP_LEFT_Y+1
+	tay				; Save in .Y for color_wire function
+	sta	VERA_ADDR_M
+	lda	VERA_DATA0		; Read color value of tile
+	jsr	color_wire
+	+ADD16 LEVEL_PTR, 4
+	bra	@loop
+@end:
+	rts
+
+;******************************************************************************
 ; Loads a specific level
 ;******************************************************************************
 ; INPUTS:	.Y = Level to be loaded (1=first level)
@@ -211,9 +339,9 @@ load_level:
 	; Handling of the last tile
 	ldx	@X_COORD
 	ldy	@Y_COORD
-	lda	#$36
-	jmp	draw_gate		; return to caller after this
-
+	lda	#$36			; Draw the output gate
+	jsr	draw_gate
+	bra	@end
 +	+INC16 LEVEL_PTR
 	lda	(LEVEL_PTR)		; Load current tile type
 	cmp	#00			; If it is input, we write input no.
@@ -250,6 +378,7 @@ load_level:
 	jsr	draw_wire
 	jmp	@load_tile
 @end:
-	rts
+	jsr	check_inputs
+	jmp	check_gates		; Return to caller after this
 
 Levelfuncs_end:
