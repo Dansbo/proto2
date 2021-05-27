@@ -125,8 +125,8 @@ Levels:
 	; Level 1 - 2 off inputs, 1 AND gate
 	!byte	$02	; 2 moves to solve level
  ;		 X   Y  Type X   Y   Input
-	!byte	$00,$05,$02,$07,$06,$00
-	!byte	$00,$07,$02,$07,$06,$02
+	!byte	$00,$05,$00,$07,$06,$00
+	!byte	$00,$07,$00,$07,$06,$02
 	!byte	$07,$06,$04,$0F,$06,$01
 	!byte	$0F,$06
 

@@ -663,9 +663,10 @@ check_gates:
 	clc				; If output is not on, clear carry and return
 	rts
 @win:
-	inc	VERA_ADDR_L
-	inc	VERA_ADDR_L
-	inc	VERA_ADDR_L
+	lda	VERA_ADDR_L
+	clc
+	adc	#4
+	sta	VERA_ADDR_L
 	lda	#WIN_COLOR
 	sta	VERA_DATA0
 	sec				; If output is on, set carry and return
@@ -839,5 +840,52 @@ load_level:
 @end:
 	jsr	check_inputs
 	jmp	check_gates		; Return to caller after this
+
+;******************************************************************************
+; Function to toggle a specified input. on/off
+;******************************************************************************
+; INPUT:	.A = PETSCII encoded input number ($31=1, $32=2 etc.)
+; USES:		TMP0
+;******************************************************************************
+toggle_input:
+	stz	VERA_ADDR_H		; No auto increment
+	sta	TMP0			; Save Number to check for
+
+	lda	#GAME_GRID_TOP_LEFT_X-1
+	asl
+	sta	VERA_ADDR_L
+	lda	#GAME_GRID_TOP_LEFT_Y+(16*3)
+	sta	VERA_ADDR_M
+
+@loop:	lda	VERA_ADDR_M
+	cmp	#GAME_GRID_TOP_LEFT_Y
+	beq	@end			; If we have reached top of grid, we can exit
+	lda	VERA_DATA0
+	cmp	TMP0
+	bne	@continue
+	; toggle input
+	lda	VERA_ADDR_L		; Point VERA to color of INPUT tile
+	clc
+	adc	#5
+	sta	VERA_ADDR_L
+	lda	VERA_DATA0
+	cmp	#WIRE_ON_COLOR
+	beq	@do_off
+	lda	#WIRE_ON_COLOR
+	bra	+
+@do_off:
+	lda	#WIRE_OFF_COLOR
++	sta	VERA_DATA0
+	inc	VERA_ADDR_L
+	inc	VERA_ADDR_L
+	sta	VERA_DATA0
+	ldy	VERA_ADDR_M
+	ldx	#GAME_GRID_TOP_LEFT_X+3
+	bra	@end
+@continue:
+	dec	VERA_ADDR_M
+	bra	@loop
+@end:
+	rts
 
 Levelfuncs_end:
