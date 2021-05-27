@@ -88,6 +88,7 @@ get_num_levels:
 ;******************************************************************************
 ; INPUTS:	.A = BG/FG color to use
 ;		.X and .Y = coordinates where line is beginning
+; USES:		TMP0
 ;******************************************************************************
 color_wire:
 	sty	VERA_ADDR_M	; Write Y coordinate to VERA
@@ -241,9 +242,467 @@ draw_wire:
 ; Cycle through all non-input gates, check their truth-table and update output
 ; wire accordingly.
 ;******************************************************************************
+; USES:		TMP0, TMP1 & TMP2
+; OUTPUT:	.C set if level is completed, otherwise clear
 ;******************************************************************************
 check_gates:
+@X_COORD=TMP1
+@Y_COORD=TMP2
+	stz	VERA_ADDR_H	; No increment
+
+	lda	Cur_level_ptr		; Load pointer to level
+	sta	LEVEL_PTR
+	lda	Cur_level_ptr+1
+	sta	LEVEL_PTR+1
+
+	+INC16 LEVEL_PTR		; Skip PAR value
+@loop:	lda	(LEVEL_PTR)
+	cmp	#$0F			; If tile x coordinate is $F we are checking output tile
+	beq	@end
+	+CALC_SCREEN_COORD @X_COORD	; Save X coordinate
+	adc	#GAME_GRID_TOP_LEFT_X
+	sta	@X_COORD
+	asl
+	sta	VERA_ADDR_L
+	+INC16 LEVEL_PTR
+	lda	(LEVEL_PTR)
+	+CALC_SCREEN_COORD @Y_COORD	; Save Y coordinate
+	adc	#GAME_GRID_TOP_LEFT_Y
+	sta	@Y_COORD
+	sta	VERA_ADDR_M
+	+INC16 LEVEL_PTR
+	lda	(LEVEL_PTR)		; Read gate type
+	tax
+	jsr	@handle_gate
+	+ADD16	LEVEL_PTR, 4
+	bra	@loop
+@end:
+	+CALC_SCREEN_COORD @X_COORD	; Save X coordinate
+	adc	#GAME_GRID_TOP_LEFT_X
+	sta	@X_COORD
+	asl
+	sta	VERA_ADDR_L
+	+INC16	LEVEL_PTR
+	lda	(LEVEL_PTR)
+	+CALC_SCREEN_COORD @Y_COORD	; Save Y coordinate
+	adc	#GAME_GRID_TOP_LEFT_Y
+	sta	@Y_COORD
+	sta	VERA_ADDR_M
+	ldx	#$36
+	jmp	@handle_gate
+
+; *******
+; Function that reads input colors and stores them in TMP0 and .A
+; *******
+@dual_input:
+	stz	TMP0			; Assume input is off
+	; Decrement X coord and read color of top input
+	dec	VERA_ADDR_L
+	lda	VERA_DATA0
+	cmp	#WIRE_ON_COLOR
+	bne	+			; If input is on, store 1 in TMP0
+	inc	TMP0
++	lda	#0			; Assume input is off
+	; Increment Y coord by 2 and read color of bottom input
+	inc	VERA_ADDR_M
+	inc	VERA_ADDR_M
+	ldy	VERA_DATA0
+	cpy	#WIRE_ON_COLOR
+	bne	+			; If input is on, store 1 in .A
+	inc
++	rts
+
+	; Nothing to do for input-gates
+@input_off:
+@input_on:
 	rts
+@and_gate:
+	jsr	@dual_input
+	; Use built-in CPU opcode to check TMP0 with .A. Result is used to color output line
+	ldy	#WIRE_OFF_COLOR
+	and	TMP0
+	beq	+
+	ldy	#WIRE_ON_COLOR
++	tya
+	ldx	@X_COORD
+	inx
+	inx
+	inx
+	ldy	@Y_COORD
+	iny
+	jmp	color_wire
+@and_top_inv:
+@and_bot_inv:
+	jsr	@dual_input
+	eor	#$01		; Invert one input
+	; Use built-in CPU opcode to check TMP0 with .A. Result is used to color output line
+	ldy	#WIRE_OFF_COLOR
+	and	TMP0
+	beq	+
+	ldy	#WIRE_ON_COLOR
++	tya
+	ldx	@X_COORD
+	inx
+	inx
+	inx
+	ldy	@Y_COORD
+	iny
+	jmp	color_wire
+@and_both_inv:
+	jsr	@dual_input
+	tay			; Save value in .A
+	lda	TMP0		; Invert value in TMP0
+	eor	#$01
+	sta	TMP0
+	tya			; Restore value to .A
+	eor	#$01		; Invert value in .A
+	; Use built-in CPU opcode to check TMP0 with .A. Result is used to color output line
+	ldy	#WIRE_OFF_COLOR
+	and	TMP0
+	beq	+
+	ldy	#WIRE_ON_COLOR
++	tya
+	ldx	@X_COORD
+	inx
+	inx
+	inx
+	ldy	@Y_COORD
+	iny
+	jmp	color_wire
+@nand_gate:
+	jsr	@dual_input
+	; Use built-in CPU opcode to check TMP0 with .A. Result is used to color output line
+	ldy	#WIRE_ON_COLOR
+	and	TMP0
+	beq	+
+	ldy	#WIRE_OFF_COLOR
++	tya
+	ldx	@X_COORD
+	inx
+	inx
+	inx
+	ldy	@Y_COORD
+	iny
+	jmp	color_wire
+@nand_top_inv:
+@nand_bot_inv:
+	jsr	@dual_input
+	eor	#$01		; invert value in .A
+	; Use built-in CPU opcode to check TMP0 with .A. Result is used to color output line
+	ldy	#WIRE_ON_COLOR
+	and	TMP0
+	beq	+
+	ldy	#WIRE_OFF_COLOR
++	tya
+	ldx	@X_COORD
+	inx
+	inx
+	inx
+	ldy	@Y_COORD
+	iny
+	jmp	color_wire
+@nand_both_inv:
+	jsr	@dual_input
+	tay			; Save value in .A
+	lda	TMP0		; Invert value in TMP0
+	eor	#$01
+	sta	TMP0
+	tya			; Restore value to .A
+	eor	#$01		; Invert value in .A
+	; Use built-in CPU opcode to check TMP0 with .A. Result is used to color output line
+	ldy	#WIRE_ON_COLOR
+	and	TMP0
+	beq	+
+	ldy	#WIRE_OFF_COLOR
++	tya
+	ldx	@X_COORD
+	inx
+	inx
+	inx
+	ldy	@Y_COORD
+	iny
+	jmp	color_wire
+@or_gate:
+	jsr	@dual_input
+	; Use built-in CPU opcode to check TMP0 with .A. Result is used to color output line
+	ldy	#WIRE_OFF_COLOR
+	ora	TMP0
+	beq	+
+	ldy	#WIRE_ON_COLOR
++	tya
+	ldx	@X_COORD
+	inx
+	inx
+	inx
+	ldy	@Y_COORD
+	iny
+	jmp	color_wire
+@or_top_inv:
+@or_bot_inv:
+	jsr	@dual_input
+	eor	#$01		; Invert value in .A
+	; Use built-in CPU opcode to check TMP0 with .A. Result is used to color output line
+	ldy	#WIRE_OFF_COLOR
+	ora	TMP0
+	beq	+
+	ldy	#WIRE_ON_COLOR
++	tya
+	ldx	@X_COORD
+	inx
+	inx
+	inx
+	ldy	@Y_COORD
+	iny
+	jmp	color_wire
+@or_both_inv:
+	jsr	@dual_input
+	tay			; Save value in .A
+	lda	TMP0		; Invert value in TMP0
+	eor	#$01
+	sta	TMP0
+	tya			; Restore value to .A
+	eor	#$01		; Invert value in .A
+	; Use built-in CPU opcode to check TMP0 with .A. Result is used to color output line
+	ldy	#WIRE_OFF_COLOR
+	ora	TMP0
+	beq	+
+	ldy	#WIRE_ON_COLOR
++	tya
+	ldx	@X_COORD
+	inx
+	inx
+	inx
+	ldy	@Y_COORD
+	iny
+	jmp	color_wire
+@nor_gate:
+	jsr	@dual_input
+	; Use built-in CPU opcode to check TMP0 with .A. Result is used to color output line
+	ldy	#WIRE_ON_COLOR
+	ora	TMP0
+	beq	+
+	ldy	#WIRE_OFF_COLOR
++	tya
+	ldx	@X_COORD
+	inx
+	inx
+	inx
+	ldy	@Y_COORD
+	iny
+	jmp	color_wire
+@nor_top_inv:
+@nor_bot_inv:
+	jsr	@dual_input
+	eor	#$01		; Invert value in .A
+	; Use built-in CPU opcode to check TMP0 with .A. Result is used to color output line
+	ldy	#WIRE_ON_COLOR
+	ora	TMP0
+	beq	+
+	ldy	#WIRE_OFF_COLOR
++	tya
+	ldx	@X_COORD
+	inx
+	inx
+	inx
+	ldy	@Y_COORD
+	iny
+	jmp	color_wire
+@nor_both_inv:
+	jsr	@dual_input
+	tay			; Save value in .A
+	lda	TMP0		; Invert value in TMP0
+	eor	#$01
+	sta	TMP0
+	tya			; Restore value to .A
+	eor	#$01		; Invert value in .A
+	; Use built-in CPU opcode to check TMP0 with .A. Result is used to color output line
+	ldy	#WIRE_ON_COLOR
+	ora	TMP0
+	beq	+
+	ldy	#WIRE_OFF_COLOR
++	tya
+	ldx	@X_COORD
+	inx
+	inx
+	inx
+	ldy	@Y_COORD
+	iny
+	jmp	color_wire
+@xor_gate:
+	jsr	@dual_input
+	; Use built-in CPU opcode to check TMP0 with .A. Result is used to color output line
+	ldy	#WIRE_OFF_COLOR
+	eor	TMP0
+	beq	+
+	ldy	#WIRE_ON_COLOR
++	tya
+	ldx	@X_COORD
+	inx
+	inx
+	inx
+	ldy	@Y_COORD
+	iny
+	jmp	color_wire
+@xor_top_inv:
+@xor_bot_inv:
+	jsr	@dual_input
+	eor	#$01		; Invert value in .A
+	; Use built-in CPU opcode to check TMP0 with .A. Result is used to color output line
+	ldy	#WIRE_OFF_COLOR
+	eor	TMP0
+	beq	+
+	ldy	#WIRE_ON_COLOR
++	tya
+	ldx	@X_COORD
+	inx
+	inx
+	inx
+	ldy	@Y_COORD
+	iny
+	jmp	color_wire
+@xor_both_inv:
+	jsr	@dual_input
+	tay			; Save value in .A
+	lda	TMP0		; Invert value in TMP0
+	eor	#$01
+	sta	TMP0
+	tya			; Restore value to .A
+	eor	#$01		; Invert value in .A
+	; Use built-in CPU opcode to check TMP0 with .A. Result is used to color output line
+	ldy	#WIRE_OFF_COLOR
+	eor	TMP0
+	beq	+
+	ldy	#WIRE_ON_COLOR
++	tya
+	ldx	@X_COORD
+	inx
+	inx
+	inx
+	ldy	@Y_COORD
+	iny
+	jmp	color_wire
+@xnor_gate:
+	jsr	@dual_input
+	; Use built-in CPU opcode to check TMP0 with .A. Result is used to color output line
+	ldy	#WIRE_ON_COLOR
+	eor	TMP0
+	beq	+
+	ldy	#WIRE_OFF_COLOR
++	tya
+	ldx	@X_COORD
+	inx
+	inx
+	inx
+	ldy	@Y_COORD
+	iny
+	jmp	color_wire
+@xnor_top_inv:
+@xnor_bot_inv:
+	jsr	@dual_input
+	eor	#$01		; Invert value in .A
+	; Use built-in CPU opcode to check TMP0 with .A. Result is used to color output line
+	ldy	#WIRE_ON_COLOR
+	eor	TMP0
+	beq	+
+	ldy	#WIRE_OFF_COLOR
++	tya
+	ldx	@X_COORD
+	inx
+	inx
+	inx
+	ldy	@Y_COORD
+	iny
+	jmp	color_wire
+@xnor_both_inv:
+	jsr	@dual_input
+	tay			; Save value in .A
+	lda	TMP0		; Invert value in TMP0
+	eor	#$01
+	sta	TMP0
+	tya			; Restore value to .A
+	eor	#$01		; Invert value in .A
+	; Use built-in CPU opcode to check TMP0 with .A. Result is used to color output line
+	ldy	#WIRE_ON_COLOR
+	eor	TMP0
+	beq	+
+	ldy	#WIRE_OFF_COLOR
++	tya
+	ldx	@X_COORD
+	inx
+	inx
+	inx
+	ldy	@Y_COORD
+	iny
+	jmp	color_wire
+@not_gate:
+	; Decrement X coord and increment Y coord to read color of input
+	dec	VERA_ADDR_L
+	inc	VERA_ADDR_M
+	lda	VERA_DATA0
+	cmp	#WIRE_ON_COLOR		; If the input is ON, output is OFF
+	beq	@switch_to_off
+	lda	#WIRE_ON_COLOR		; Else output is ON
+	bra	@continue
+@switch_to_off:
+	lda	#WIRE_OFF_COLOR
+@continue:
+	ldx	@X_COORD
+	inx
+	inx
+	inx
+	ldy	@Y_COORD
+	iny
+	jmp	color_wire
+@output:
+	; Decrement X coord and increment Y coord to read color of input
+	dec	VERA_ADDR_L
+	inc	VERA_ADDR_M
+	lda	VERA_DATA0
+	cmp	#WIRE_ON_COLOR
+	beq	@win
+	clc				; If output is not on, clear carry and return
+	rts
+@win:
+	inc	VERA_ADDR_L
+	inc	VERA_ADDR_L
+	inc	VERA_ADDR_L
+	lda	#WIN_COLOR
+	sta	VERA_DATA0
+	sec				; If output is on, set carry and return
+	rts
+
+@gate_no:
+	!word	@input_off:
+	!word	@input_on:
+	!word	@and_gate:
+	!word	@and_top_inv:
+	!word	@and_bot_inv:
+	!word	@and_both_inv:
+	!word	@nand_gate:
+	!word	@nand_top_inv:
+	!word	@nand_bot_inv:
+	!word	@nand_both_inv:
+	!word	@or_gate:
+	!word	@or_top_inv:
+	!word	@or_bot_inv:
+	!word	@or_both_inv:
+	!word	@nor_gate:
+	!word	@nor_top_inv:
+	!word	@nor_bot_inv:
+	!word	@nor_both_inv:
+	!word	@xor_gate:
+	!word	@xor_top_inv:
+	!word	@xor_bot_inv:
+	!word	@xor_both_inv:
+	!word	@xnor_gate:
+	!word	@xnor_top_inv:
+	!word	@xnor_bot_inv:
+	!word	@xnor_both_inv:
+	!word	@not_gate:
+	!word	@output:
+
+@handle_gate:
+	jmp	(@gate_no,x)
 
 ;******************************************************************************
 ; Cycle through all inputs and ensure the connected wire is the same color
