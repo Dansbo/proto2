@@ -138,7 +138,7 @@ draw_gate:
 	sta	TMP_PTR6
 	lda	@draw_table+1,y
 	sta	TMP_PTR6+1
-	ldx	#(GREEN<<4)|BLACK
+	ldx	#GATE_COLOR
 	ldy	VERA_ADDR_L
 	jmp	(TMP_PTR6)
 
@@ -159,11 +159,11 @@ draw_gate:
 	inc	VERA_ADDR_L
 	lda	#$FF
 	sta	VERA_DATA0
-	lda	#(GREEN<<4)|YELLOW
+	lda	#WIRE_ON_COLOR
 	sta	VERA_DATA0
 	lda	#$43
 	sta	VERA_DATA0
-	lda	#(GREEN<<4)|YELLOW
+	lda	#WIRE_ON_COLOR
 	sta	VERA_DATA0
 	rts
 @and_gate:
