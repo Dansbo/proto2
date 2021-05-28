@@ -16,41 +16,57 @@ LEVEL_PTR=TMP_PTR7
 Level_par:	!byte	$00
 Cur_level_ptr:	!word	$0000
 
-Title0:		!PET PET_PURPLE,	"*****   *****    ****   ******   ****    **  **   ****  ",0
-Title1: 	!PET PET_LIGHTBLUE,	"**  **  **  **  **  **    **    **  **   **  **  **  ** ",0
-Title2: 	!PET PET_CYAN,		"**  **  **  **  **  **    **    **  **  ********     ** ",0
-Title3: 	!PET PET_GREEN,		"*****   *****   **  **    **    **  **   **  **     **  ",0
-Title4: 	!PET PET_YELLOW,	"**      ****    **  **    **    **  **  ********  **    ",0
-Title5: 	!PET PET_ORANGE,	"**      ** **   **  **    **    **  **   **  **  **     ",0
-Title6:		!PET PET_RED,		"**      **  **   ****     **     ****    **  **  ****** ",0
+Title0:		!PET PET_PURPLE,	"*****   *****    ****   ******   ****    **  **   ****",0
+Title1: 	!PET PET_LIGHTBLUE,	"**  **  **  **  **  **    **    **  **   **  **  **  **",0
+Title2: 	!PET PET_CYAN,		"**  **  **  **  **  **    **    **  **  ********     **",0
+Title3: 	!PET PET_GREEN,		"*****   *****   **  **    **    **  **   **  **     **",0
+Title4: 	!PET PET_YELLOW,	"**      ****    **  **    **    **  **  ********  **",0
+Title5: 	!PET PET_ORANGE,	"**      ** **   **  **    **    **  **   **  **  **",0
+Title6:		!PET PET_RED,		"**      **  **   ****     **     ****    **  **  ******",0
 
 Welcome:	!PET PET_WHITE,		"welcome to this boolean logic circuit trainer",0
 
-Hell0:		!PET PET_RED,		"******  *****    ****   **   ** ",0
-Hell1:		!PET 			"**      **  **  **  **  *** *** ",0
-Hell2:		!PET			"**      **  **  **  **  ******* ",0
-Hell3:		!PET			"****    *****   **  **  ** * ** ",0
-Hell4:		!PET			"**      ****    **  **  **   ** ",0
-Hell5:		!PET    		"**      ** **   **  **  **   ** ",0
-Hell6:		!PET			"**      **  **   ****   **   ** ",0
+Hell0:		!PET PET_RED,		"******  *****    ****   **   **",0
+Hell1:		!PET 			"**      **  **  **  **  *** ***",0
+Hell2:		!PET			"**      **  **  **  **  *******",0
+Hell3:		!PET			"****    *****   **  **  ** * **",0
+Hell4:		!PET			"**      ****    **  **  **   **",0
+Hell5:		!PET    		"**      ** **   **  **  **   **",0
+Hell6:		!PET			"**      **  **   ****   **   **",0
 
-Hell7:		!PET			"**  **  ******  **      **      ",0
-Hell8:		!PET			"**  **  **      **      **      ",0
-Hell9:		!PET			"**  **  **      **      **      ",0
-Hell10:		!PET			"******  ****    **      **      ",0
-Hell11:		!PET			"**  **  **      **      **      ",0
-Hell12:		!PET			"**  **  **      **      **      ",0
-Hell13:		!PET			"**  **  ******  ******  ******  ",0
+Hell7:		!PET			"**  **  ******  **      **",0
+Hell8:		!PET			"**  **  **      **      **",0
+Hell9:		!PET			"**  **  **      **      **",0
+Hell10:		!PET			"******  ****    **      **",0
+Hell11:		!PET			"**  **  **      **      **",0
+Hell12:		!PET			"**  **  **      **      **",0
+Hell13:		!PET			"**  **  ******  ******  ******",0
 
 Choose:		!PET PET_WHITE,		"do you want to play this game? (yes/no/other)",0
 
-Create0:	!PET PET_PURPLE,	" *****   *****   ******     *     ******  ******  ****   ",0
-Create1:	!PET PET_LIGHTBLUE,	"**   **  **  **  **       ** **     **    **      ** **  ",0
-Create2:	!PET PET_CYAN,		"**       **  **  **      **   **    **    **      **  ** ",0
-Create3:	!PET PET_GREEN,		"**       *****   ****    *******    **    ****    **  ** ",0
-Create4:	!PET PET_YELLOW,	"**       ****    **      **   **    **    **      **  ** ",0
-Create5:	!PET PET_ORANGE,	"**   **  ** **   **      **   **    **    **      ** **  ",0
-Create6:	!PET PET_RED,		" *****   **  **  ******  **   **    **    ******  ****   ",0
+Create0:	!PET PET_PURPLE,	" *****   *****   ******     *     ******  ******  ****",0
+Create1:	!PET PET_LIGHTBLUE,	"**   **  **  **  **       ** **     **    **      ** **",0
+Create2:	!PET PET_CYAN,		"**       **  **  **      **   **    **    **      **  **",0
+Create3:	!PET PET_GREEN,		"**       *****   ****    *******    **    ****    **  **",0
+Create4:	!PET PET_YELLOW,	"**       ****    **      **   **    **    **      **  **",0
+Create5:	!PET PET_ORANGE,	"**   **  ** **   **      **   **    **    **      ** **",0
+Create6:	!PET PET_RED,		" *****   **  **  ******  **   **    **    ******  ****",0
+
+By0:		!PET 			"******   ***  ***",0
+By1:		!PET			"**  ***  ***  ***",0
+By2:		!PET			"**  ***  ***  ***",0
+By3:		!PET			"******     ****",0
+By4:		!PET			"**  ***     **",0
+By5:		!PET			"**  ***     **",0
+By6:		!PET			"******      **",0
+
+Copr0:		!PET PET_WHITE,		"  ***    ****       *     **  **   ****   ******   *****    ****    ****",0
+Copr1:		!PET			" *   *   ** **    ** **   **  **  **  **  **  ***  **  **  **  **  **  **",0
+Copr2:		!PET			"* *** *  **  **  **   **  *** **  **      **  ***  **  **  **  **  **",0
+Copr3:		!PET			"* *   *  **  **  *******  ******   ****   ******   *****   **  **   ****",0
+Copr4:		!PET			"* *** *  **  **  **   **  ** ***      **  **  ***  ****    **  **      **",0
+Copr5:		!PET			" *   *   ** **   **   **  **  **  **  **  **  ***  ** **   **  **  **  **",0
+Copr6:		!PET			"  ***    ****    **   **  **  **   ****   ******   **  **   ****    ****",0
 
 Chars:
 ; ******************* AND/NAND *************************
