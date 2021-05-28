@@ -64,12 +64,12 @@ Print_Title:
 	+Write_XY 31, 46, By4
 	+Write_XY 31, 47, By5
 	+Write_XY 31, 48, By6
-	+Write_XY 3, 51, Copr0
-	+Write_XY 3, 52, Copr1
-	+Write_XY 3, 53, Copr2
-	+Write_XY 3, 54, Copr3
-	+Write_XY 3, 55, Copr4
-	+Write_XY 3, 56, Copr5
-	+Write_XY 3, 57, Copr6
+	+Write_XY 7, 51, Copr0
+	+Write_XY 7, 52, Copr1
+	+Write_XY 7, 53, Copr2
+	+Write_XY 7, 54, Copr3
+	+Write_XY 7, 55, Copr4
+	+Write_XY 7, 56, Copr5
+	+Write_XY 7, 57, Copr6
 	rts
 TextUI_end
