@@ -19,18 +19,18 @@ main:
 	jsr Print_Title
 
 ; **** Demo of game logic ****
-	jsr	reset_game_grid
-	ldy	#1
-	jsr	load_level
+;	jsr	reset_game_grid
+;	ldy	#1
+;	jsr	load_level
 
-@loop:
-	jsr	GETIN
-	cmp	#0
-	beq	@loop:
-	jsr	toggle_input
-	jsr	check_inputs
-	jsr	check_gates
-	bcc	@loop
+;@loop:
+;	jsr	GETIN
+;	cmp	#0
+;	beq	@loop:
+;	jsr	toggle_input
+;	jsr	check_inputs
+;	jsr	check_gates
+;	bcc	@loop
 @end:
 ; **** Demo ends ****
 	rts

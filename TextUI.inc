@@ -71,5 +71,28 @@ Print_Title:
 	+Write_XY 7, 55, Copr4
 	+Write_XY 7, 56, Copr5
 	+Write_XY 7, 57, Copr6
-	rts
+	+Write_XY 76, 59, Year
+
+@loop
+	jsr GETIN
+	cmp #0
+	beq @loop
+	cmp #'n'		;N for no
+	beq Print_no
+	cmp #'o'		;O for other
+	jmp @end
+	beq Print_other
+	cmp #'y'		;Y for Yes
+	beq @end
+
+
+Print_no:
+	+Write_XY 27, 17, Why0
+	+Write_XY 27, 18, Why1
+	+Write_XY 27, 19, Why2
+
+Print_other:
+
+
+@end	rts
 TextUI_end
