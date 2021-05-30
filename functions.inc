@@ -93,6 +93,25 @@ reset_game_grid:
 	rts
 
 ;******************************************************************************
+; Use KERNAL functions to load the VTUI library to Golden RAM ($0400)
+;******************************************************************************
+load_vtui:
+	lda	#1			; Logical file number (must be unique)
+	ldx	#8			; Device number (8 local filesystem)
+	ldy	#0			; Secondary command 0 = dont use addr in file
+	jsr	SETLFS			; SETLFS
+	lda	#(End_file_name-Vtui_file_name)	; Length of filename
+	ldx	#<Vtui_file_name	; Address of filename
+	ldy	#>Vtui_file_name
+	jsr	SETNAM			; SETNAM
+	lda	#0			; 0=load, 1=verify
+	ldx	#<VTUI_START		; Load file to LIBSTART
+	ldy	#>VTUI_START
+	jsr	LOAD			; LOAD
+	rts
+
+
+;******************************************************************************
 ; Function to draw a gate-tile at specific coordinates.
 ;******************************************************************************
 ; INPUTS:	.X & .Y - Coordinates of top left corner of gate-tile

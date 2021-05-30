@@ -14,25 +14,13 @@
 ; Main program starts here.
 ;******************************************************************************
 main:
-	jsr load_chars	; Load special chars to draw gates into font memory
-	jsr Init_VERA
-	jsr Print_Title
+	jsr	load_vtui	; Load and initialize VTUI library
+	jsr	VTUI_initialize
+	jsr	load_chars	; Load special chars to draw gates into font memory
+	jsr	Init_VERA
+	jsr	Print_Title
 
-; **** Demo of game logic ****
-;	jsr	reset_game_grid
-;	ldy	#1
-;	jsr	load_level
-
-;@loop:
-;	jsr	GETIN
-;	cmp	#0
-;	beq	@loop:
-;	jsr	toggle_input
-;	jsr	check_inputs
-;	jsr	check_gates
-;	bcc	@loop
 @end:
-; **** Demo ends ****
 	rts
 
 

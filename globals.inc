@@ -1,20 +1,47 @@
 	jmp globals_end
 
-GAME_GRID_TOP_LEFT_X=20
-GAME_GRID_TOP_LEFT_Y=9
-GAME_GRID_COLOR=(GREEN<<4)|BLACK
-GATE_COLOR=(GREEN<<4)|BLACK
-WIRE_OFF_COLOR=(GREEN<<4)|BLACK
-WIRE_ON_COLOR=(GREEN<<4)|YELLOW
-WIN_COLOR=(GREEN<<4)|RED
-GAME_GRID_X_WIDTH=16
-GAME_GRID_Y_WIDTH=16
+GAME_GRID_TOP_LEFT_X	= 20
+GAME_GRID_TOP_LEFT_Y	= 9
+GAME_GRID_COLOR		= (GREEN<<4)|BLACK
+GATE_COLOR		= (GREEN<<4)|BLACK
+WIRE_OFF_COLOR		= (GREEN<<4)|BLACK
+WIRE_ON_COLOR		= (GREEN<<4)|YELLOW
+WIN_COLOR		= (GREEN<<4)|RED
+GAME_GRID_X_WIDTH	= 16
+GAME_GRID_Y_WIDTH	= 16
 
-LEVELS=LEVEL_BIN+2
-LEVEL_PTR=TMP_PTR7
+LEVELS			= LEVEL_BIN+2
+LEVEL_PTR		= TMP_PTR7
 
 Level_par:	!byte	$00
 Cur_level_ptr:	!word	$0000
+
+; VTUI library documentation found here:
+; https://github.com/JimmyDansbo/VTUIlib/blob/main/README.md
+Vtui_file_name	!text	"VTUI0.8.BIN"
+End_file_name:
+VTUI_START		= $0400
+; Library references
+VTUI_initialize		= VTUI_START+0
+VTUI_screen_set		= VTUI_START+2
+VTUI_set_bank		= VTUI_START+5
+VTUI_set_stride		= VTUI_START+8
+VTUI_set_decr		= VTUI_START+11
+VTUI_clr_scr		= VTUI_START+14
+VTUI_gotoxy		= VTUI_START+17
+VTUI_plot_char		= VTUI_START+20
+VTUI_scan_char		= VTUI_START+23
+VTUI_hline		= VTUI_START+26
+VTUI_vline		= VTUI_START+29
+VTUI_print_str		= VTUI_START+32
+VTUI_fill_box		= VTUI_START+35
+VTUI_pet2scr		= VTUI_START+38
+VTUI_scr2pet		= VTUI_START+41
+VTUI_border		= VTUI_START+44
+VTUI_save_rect		= VTUI_START+47
+VTUI_rest_rect		= VTUI_START+50
+VTUI_input_str		= VTUI_START+53
+
 
 Title0:		!PET PET_PURPLE,	"*****   *****    ****   ******   ****    **  **   ****",0
 Title1: 	!PET PET_LIGHTBLUE,	"**  **  **  **  **  **    **    **  **   **  **  **  **",0
