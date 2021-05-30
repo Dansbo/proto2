@@ -71,25 +71,18 @@ Print_Str:
 reset_game_grid:
 	lda	#$10
 	sta	VERA_ADDR_H	; Increment by 1, High addr = 0
-	lda	#GAME_GRID_TOP_LEFT_Y
-	sta	VERA_ADDR_M
-	lda	#GAME_GRID_TOP_LEFT_X<<1
-	sta	VERA_ADDR_L
 
-	ldy	#(GAME_GRID_Y_WIDTH*3)
-@yloop:
-	ldx	#(GAME_GRID_X_WIDTH*3)
-@xloop:	lda	#' '
-	sta	VERA_DATA0
-	lda	#GAME_GRID_COLOR
-	sta	VERA_DATA0
-	dex
-	bne	@xloop
-	inc	VERA_ADDR_M
-	lda	#GAME_GRID_TOP_LEFT_X<<1
-	sta	VERA_ADDR_L
-	dey
-	bne	@yloop
+	lda	#GAME_GRID_TOP_LEFT_X
+	ldy	#GAME_GRID_TOP_LEFT_Y
+	jsr	VTUI_gotoxy
+
+	lda	#GAME_GRID_WIDTH*3
+	sta	r1l
+	lda	#GAME_GRID_HEIGHT*3
+	sta	r2l
+	ldx	#GAME_GRID_COLOR
+	lda	#' '
+	jsr	VTUI_fill_box
 	rts
 
 ;******************************************************************************
