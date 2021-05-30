@@ -71,25 +71,27 @@ Print_Title:
 	+Write_XY 7, 55, Copr4
 	+Write_XY 7, 56, Copr5
 	+Write_XY 7, 57, Copr6
-	+Write_XY 76, 59, Year
+	+Write_XY 75, 59, Year
 
 @loop
 	jsr GETIN
 	cmp #0
 	beq @loop
-	cmp #'n'		;N for no
+	cmp #'N'		;N for no
 	beq @Print_no
-	cmp #'o'		;O for other
+	cmp #'O'		;O for other
 	jmp @end
 	beq @Print_other
-	cmp #'y'		;Y for Yes
+	cmp #'Y'		;Y for Yes
 	beq @end
+	cmp #'Q'		;Q for quit
 
 
 @Print_no:
-	+Write_XY 27, 17, Why0
-	+Write_XY 27, 18, Why1
-	+Write_XY 27, 19, Why2
+	+Write_XY 24, 29, Why0
+	+Write_XY 24, 30, Why1
+	+Write_XY 24, 31, Why2
+	jmp @loop
 
 @Print_other:
 
