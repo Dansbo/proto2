@@ -82,8 +82,7 @@ reset_game_grid:
 	sta	r2l
 	ldx	#GAME_GRID_COLOR
 	lda	#' '
-	jsr	VTUI_fill_box
-	rts
+	jmp	VTUI_fill_box
 
 ;******************************************************************************
 ; Use KERNAL functions to load the VTUI library to Golden RAM ($0400)
