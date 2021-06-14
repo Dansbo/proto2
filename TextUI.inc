@@ -77,15 +77,16 @@ Print_Title:
 	jsr GETIN
 	cmp #0
 	beq @loop
+
 	cmp #'N'		;N for no
 	beq @Print_no
 	cmp #'O'		;O for other
-	jmp @end
 	beq @Print_other
 	cmp #'Y'		;Y for Yes
 	beq @end
 	cmp #'Q'		;Q for quit
-
+	beq	@end
+	bra	@loop
 
 @Print_no:
 	+Write_XY 24, 29, Why0
@@ -94,6 +95,11 @@ Print_Title:
 	jmp @loop
 
 @Print_other:
+	+Write_XY 25, 28, Undec0
+	+Write_XY 25, 29, Undec1
+	+Write_XY 25, 30, Undec2
+	+Write_XY 25, 31, Undec3
+	jmp	@loop
 
 
 @end	rts
