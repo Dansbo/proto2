@@ -12,8 +12,6 @@ Init_VERA:
 	jsr CHROUT
 	lda #PET_WHITE
 	jsr CHROUT
-	lda #PET_CLEAR
-	jsr CHROUT
 
 	rts
 
@@ -27,6 +25,8 @@ Init_VERA:
 }
 
 Print_Title:
+	lda #PET_CLEAR
+	jsr CHROUT
 	+Write_XY 12, 1, Title0
 	+Write_XY 12, 2, Title1
 	+Write_XY 12, 3, Title2
@@ -82,23 +82,29 @@ Print_Title:
 	beq @Print_no
 	cmp #'O'		;O for other
 	beq @Print_other
+	cmp #' '		;space to print title
+	jmp Print_Title
 	cmp #'Y'		;Y for Yes
-	beq @end
-	cmp #'Q'		;Q for quit
-	beq	@end
-	bra	@loop
+	bne +
+	jmp 	@end
++	cmp #'Q'		;Q for quit
+	bne +
+	jmp	@end
++	bra	@loop
 
 @Print_no:
-	+Write_XY 24, 29, Why0
-	+Write_XY 24, 30, Why1
-	+Write_XY 24, 31, Why2
-	jmp @loop
+	+Write_XY 24, 28, Why0
+	+Write_XY 24, 29, Why1
+	+Write_XY 24, 30, Why2
+	+Write_XY 24, 31, Why3
+	jmp 	@loop
 
 @Print_other:
-	+Write_XY 25, 28, Undec0
-	+Write_XY 25, 29, Undec1
-	+Write_XY 25, 30, Undec2
-	+Write_XY 25, 31, Undec3
+	+Write_XY 24, 28, Undec0
+	+Write_XY 24, 29, Undec1
+	+Write_XY 24, 30, Undec2
+	+Write_XY 24, 31, Undec3
+	+Write_XY 24, 32, Undec4
 	jmp	@loop
 
 
