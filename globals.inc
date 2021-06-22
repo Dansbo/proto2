@@ -108,6 +108,8 @@ Undec2:		!PET			$B4,"    but now i am not sure.    ",$EA,0
 Undec3:		!PET			$B4,"   press space to continue?   ",$EA,0
 Undec4:		!PET			$6C,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$FA,0
 
+Lvl:		!PET			"choose your level (default:1) 1-1 "
+
 Chars:
 ; ******************* AND/NAND *************************
 ; Top left of AND

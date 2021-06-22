@@ -86,7 +86,7 @@ Print_Title:
 	jmp Print_Title
 	cmp #'Y'		;Y for Yes
 	bne +
-	jmp 	@end
+	jmp @Choice
 +	cmp #'Q'		;Q for quit
 	bne +
 	jmp	@end
@@ -106,6 +106,13 @@ Print_Title:
 	+Write_XY 24, 31, Undec3
 	+Write_XY 24, 32, Undec4
 	jmp	@loop
+
+@Choice:
+	lda 	#PET_CLEAR
+	jsr 	CHROUT
+
+	+Write_XY 24, 29, Lvl
+	JSR	GETIN
 
 
 @end	rts
