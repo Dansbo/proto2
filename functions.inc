@@ -138,20 +138,20 @@ load_vtui:
 ;	$36 - Output
 ;******************************************************************************
 draw_gate:
-	pha
+	pha				; Save gate type on stack
 	+VERA_SET_STRIDE 1
-	txa
+	txa				; Calculate X address from X coordinate
 	asl
-	sta	VERA_ADDR_L
-	sty	VERA_ADDR_M
-	ply
-	lda	@draw_table,y
+	sta	VERA_ADDR_L		; Store X address
+	sty	VERA_ADDR_M		; Store Y Address
+	ply				; Use gate type as index to jmp table
+	lda	@draw_table,y		; Copy address to zero page
 	sta	TMP_PTR6
 	lda	@draw_table+1,y
 	sta	TMP_PTR6+1
-	ldx	#GATE_COLOR
-	ldy	VERA_ADDR_L
-	jmp	(TMP_PTR6)
+	ldx	#GATE_COLOR		; Store GATE_COLOR in .X register
+	ldy	VERA_ADDR_L		; Save X address in .Y register
+	jmp	(TMP_PTR6)		; Indirect jump
 
 @input_off:
 	inc	VERA_ADDR_M
