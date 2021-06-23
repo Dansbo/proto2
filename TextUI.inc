@@ -77,17 +77,17 @@ Print_Title:
 	jsr GETIN
 	cmp #0
 	beq @loop
+!byte $db
 
 	cmp #'N'		;N for no
 	beq @Print_no
 	cmp #'O'		;O for other
 	beq @Print_other
 	cmp #' '		;space to print title
-	jmp Print_Title
+	+FBEQ Print_Title
 	cmp #'Y'		;Y for Yes
-	bne +
-	jmp @Choice
-+	cmp #'Q'		;Q for quit
+	+FBEQ @Choice
+	cmp #'Q'		;Q for quit
 	bne +
 	jmp	@end
 +	bra	@loop
