@@ -77,7 +77,6 @@ Print_Title:
 	jsr GETIN
 	cmp #0
 	beq @loop
-!byte $db
 
 	cmp #'N'		;N for no
 	beq @Print_no
@@ -111,8 +110,16 @@ Print_Title:
 	lda 	#PET_CLEAR
 	jsr 	CHROUT
 
-	+Write_XY 24, 29, Lvl
-	JSR	GETIN
+	+Write_XY 21, 29, Lvl
+	jsr	get_num_levels
+	CLC
+	adc	#$30
+	JSR	CHROUT
+	lda	#":"
+	JSR	CHROUT
+	lda	#" "
+	JSR	CHROUT
+	JSR	CHRIN
 
 
 @end	rts
