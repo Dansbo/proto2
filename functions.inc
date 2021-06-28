@@ -29,18 +29,29 @@ Bin2bcd:
 ;Input value Bcd in bcd format
 ;******************************************************************************
 Print_byte:
-	ldy Dec10		;Only print 0 if not first number
 	pha			;Save original value on stack
 	lsr			;Shift right to just get top nibble
 	lsr
 	lsr
 	lsr
-	beq +
+	tay			;Transfer .A to .Y
+	clc			;clear carry bit
+	adc Dec10		;Add to Dec10
+	sta Dec10		;Store new value to Dec10
+	cmp #1
+	bcc +
+	tya
 	ora #$30
 	jsr CHROUT
 +	pla			;Pull original value from stack
 	and #$0F
-	beq +
+	tay
+	clc
+	adc Dec10
+	sta Dec10
+	cmp #1
+	bcc +
+	tya
 	ora #$30
 	jsr CHROUT
 

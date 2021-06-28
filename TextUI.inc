@@ -124,6 +124,7 @@ Print_Title:
 
 	+Write_XY 17, 29, Lvl
 	jsr	get_num_levels
+	stz	Dec10
 	jsr	Bin2bcd
 	lda	Bcd+1
 	jsr	Print_byte
