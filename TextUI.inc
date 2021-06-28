@@ -122,11 +122,13 @@ Print_Title:
 +	lda 	#PET_CLEAR
 	jsr 	CHROUT
 
-	+Write_XY 21, 29, Lvl
+	+Write_XY 17, 29, Lvl
 	jsr	get_num_levels
-	CLC
-	adc	#$30
-	JSR	CHROUT
+	jsr	Bin2bcd
+	lda	Bcd+1
+	jsr	Print_byte
+	lda	Bcd
+	jsr	Print_byte
 	lda	#":"
 	JSR	CHROUT
 	lda	#" "

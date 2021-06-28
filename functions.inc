@@ -1,6 +1,51 @@
 	jmp	Functions_end
 
 ;******************************************************************************
+;Convert Binary number to decimal
+;.A is input , OUTPUT = Bcd, Bcd+1
+;******************************************************************************
+Bin2bcd:
+	STA	Bin		;Store .A in Bin
+	stz	Bcd		;Clear output
+	stz	Bcd+1
+	ldx 	#8
+	sed
+
+@convert:
+	asl	Bin
+	lda	Bcd
+	adc	Bcd
+	sta	Bcd
+	lda	Bcd+1
+	adc	Bcd+1
+	sta	Bcd+1
+	dex
+	bne	@convert
+	cld
+
+	rts
+;******************************************************************************
+;Print BCD value on screen
+;Input value Bcd in bcd format
+;******************************************************************************
+Print_byte:
+	ldy Dec10		;Only print 0 if not first number
+	pha			;Save original value on stack
+	lsr			;Shift right to just get top nibble
+	lsr
+	lsr
+	lsr
+	beq +
+	ora #$30
+	jsr CHROUT
++	pla			;Pull original value from stack
+	and #$0F
+	beq +
+	ora #$30
+	jsr CHROUT
+
++	rts
+;******************************************************************************
 ; Loads characters used for drawing gates into the existing charset
 ;******************************************************************************
 load_chars:
