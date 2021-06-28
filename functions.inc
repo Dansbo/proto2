@@ -38,9 +38,9 @@ Print_byte:
 	clc			;clear carry bit
 	adc Dec10		;Add to Dec10
 	sta Dec10		;Store new value to Dec10
-	cmp #1
+	cmp #1			;If Dec10 is less than 1 then skip
 	bcc +
-	tya
+	tya			;Transfer original value back to .A
 	ora #$30
 	jsr CHROUT
 +	pla			;Pull original value from stack
