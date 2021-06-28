@@ -72,6 +72,7 @@ Print_Title:
 	+Write_XY 7, 56, Copr5
 	+Write_XY 7, 57, Copr6
 	+Write_XY 75, 59, Year
+	stz TMP0
 
 @loop
 	jsr GETIN
@@ -92,22 +93,33 @@ Print_Title:
 +	bra	@loop
 
 @Print_no:
+	lda TMP0
+	bne +
 	+Write_XY 24, 28, Why0
 	+Write_XY 24, 29, Why1
 	+Write_XY 24, 30, Why2
 	+Write_XY 24, 31, Why3
-	jmp 	@loop
+	lda #1
+	sta TMP0
++	jmp 	@loop
 
 @Print_other:
+	lda TMP0
+	bne +
 	+Write_XY 24, 28, Undec0
 	+Write_XY 24, 29, Undec1
 	+Write_XY 24, 30, Undec2
 	+Write_XY 24, 31, Undec3
 	+Write_XY 24, 32, Undec4
-	jmp	@loop
+	lda #1
+	sta TMP0
++	jmp	@loop
 
 @Choice:
-	lda 	#PET_CLEAR
+	lda TMP0
+	beq +
+	jmp @loop
++	lda 	#PET_CLEAR
 	jsr 	CHROUT
 
 	+Write_XY 21, 29, Lvl
