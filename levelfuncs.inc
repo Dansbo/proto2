@@ -1,5 +1,12 @@
 	jmp	Levelfuncs_end
 
+; * find_level:		.Y=level to find, .C clear if level found
+; * get_num_levels:	Return total number of levels in .A
+; * load_level:		Load level in .Y
+; * toggle_input:	Toggle input color, .A=PETSCII encoded number
+; * check_inputs:	Ensure wires connected to inputs are correct color
+; * check_gates:	Check truthtable of all gates, .C set if level completed
+
 ;******************************************************************************
 ; Increment 16 bit memory location
 ;******************************************************************************
