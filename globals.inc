@@ -113,6 +113,9 @@ Lvl:		!PET			"choose your level (default:1) 1 - "
 Bin:		!BYTE			0
 Bcd:		!WORD			0
 Dec10:		!BYTE			0
+Ones:		!BYTE			0
+Tens:		!BYTE			0
+Hundreds:	!BYTE			0
 
 Chars:
 ; ******************* AND/NAND *************************
