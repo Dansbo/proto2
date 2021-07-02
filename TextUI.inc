@@ -167,6 +167,7 @@ Print_Title:
 	beq	@default
 	cpx	#2
 	bne	@tens
+	lda	char1
 	jsr	Add1s
 	jmp	@end
 
@@ -180,7 +181,6 @@ Print_Title:
 	jmp	@end
 
 @hundreds
-!Byte $DB
 	lda	char1
 	cmp	#3
 	+FBPL	@Choice
@@ -193,6 +193,7 @@ Print_Title:
 
 @default
 	ldy	#1
+	sty	result
 
 @end	inc	lvl
 	ldy	result
