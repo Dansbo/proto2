@@ -124,6 +124,7 @@ Print_Title:
 
 	+Write_XY 17, 29, Lvl
 	jsr	get_num_levels
+	sta	lvl
 	stz	Dec10
 	jsr	Bin2bcd
 	lda	Bcd+1
@@ -134,8 +135,68 @@ Print_Title:
 	JSR	CHROUT
 	lda	#" "
 	JSR	CHROUT
+	ldy	#0			;Clear .Y so it can be used to call level
+	ldx	#0			;Load X with 0 so we can count numbers pressed
+@get_char
 	JSR	CHRIN
+	cpx	#5
+	bpl	@Choice
+	inx
+	cmp	#$0D			;Has user pressed return?
+	beq	@return
+	cmp	#$29
+	bmi	@Choice
+	cmp	#$40
+	bpl	@Choice
+	and	#$0F
+	cpx	#1
+	bne	@chk2
+	sta	char1
+	jmp	@get_char
+@chk2	cpx	#2
+	bne	@chk3
+	sta	char2
+	jmp	@get_char
+@chk3	cpx	#4
+	bpl	@Choice
+	sta	char3
+	jmp	@get_char
 
+@return
+	cpx	#1
+	beq	@default
+	cpx	#2
+	bne	@tens
+	jsr	Add1s
+	jmp	@end
 
-@end	rts
+@tens
+	cpx	#3
+	bne	@hundreds
+	lda	char1
+	jsr	Multiply10x
+	lda	char2
+	jsr	Add1s
+	jmp	@end
+
+@hundreds
+!Byte $DB
+	lda	char1
+	cmp	#3
+	+FBPL	@Choice
+	jsr	Multiply100x
+	lda	char2
+	jsr	Multiply10x
+	lda	char3
+	jsr	Add1s
+	jmp	@end
+
+@default
+	ldy	#1
+
+@end	inc	lvl
+	ldy	result
+	cpy	lvl
+	+FBPL	@Choice
+	rts
 TextUI_end

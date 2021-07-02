@@ -19,6 +19,7 @@ main:
 	jsr	load_chars	; Load special chars to draw gates into font memory
 	jsr	Init_VERA
 	jsr	Print_Title
+	jsr	load_level
 
 @end:
 	rts

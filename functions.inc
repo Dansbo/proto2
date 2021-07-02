@@ -1,6 +1,69 @@
 	jmp	Functions_end
 
 ;******************************************************************************
+;Multiply .A with 100
+;.A is input, result is OUTPUT, Modifies .Y
+;******************************************************************************
+Multiply100x:
+	stz	result		;Initialize result to 0
+	tay			;Save .A for later use
+	asl
+	asl
+	asl
+	asl
+	asl
+	asl
+	sta	result		;Result = 64 x .A
+	tya			;Reload original .A
+	asl
+	asl
+	asl
+	asl
+	asl
+	clc
+	adc	result
+	sta	result		;Result = 64 x .A + 32 x .A = 96 x .A
+	tya			;Relaod original .A
+	asl
+	asl
+	clc
+	adc	result
+	sta	result		;Result = 96 x .A + 4 x .A = 100 x .A
+	rts
+
+;******************************************************************************
+;Multiply .A with 10 and add to result
+;.A is input, result is OUTPUT, modifies .X, .Y
+;******************************************************************************
+Multiply10x:
+	ldx	result		;Store result in .X as it may contain hundreds
+	tay			;Save .A for later user
+	asl
+	asl
+	asl
+	sta	result		;Result = 8 x .A
+	tya			;Reload original .A
+	asl
+	clc
+	adc	result
+	sta	result		;result = 8 x .A + 2 x .A = 10 x .A
+	txa			;Transfer original result to .A
+	clc
+	adc	result
+	sta	result		;result = result + 10 x .A
+	rts
+
+;******************************************************************************
+;Adds .A to result
+;.A is input, result is OUTPUT
+;******************************************************************************
+Add1s:
+	clc
+	adc	result
+	sta	result		;Result = Result + .A
+	rts
+
+;******************************************************************************
 ;Convert Binary number to decimal
 ;.A is input , OUTPUT = Bcd, Bcd+1
 ;******************************************************************************

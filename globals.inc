@@ -116,6 +116,8 @@ Dec10:		!BYTE			0
 char1:		!BYTE			0
 char2:		!BYTE			0
 char3:		!BYTE			0
+result:		!BYTE			0
+lvl:		!BYTE			0
 
 Chars:
 ; ******************* AND/NAND *************************
