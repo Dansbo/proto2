@@ -197,6 +197,8 @@ Print_Title:
 
 @end	inc	lvl
 	ldy	result
+	cpy	#0
+	+FBEQ	@Choice
 	cpy	lvl
 	+FBPL	@Choice
 	rts
