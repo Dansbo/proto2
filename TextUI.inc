@@ -76,7 +76,6 @@ Print_Title:
 
 @loop
 	jsr GETIN
-	cmp #0
 	beq @loop
 
 	cmp #'N'		;N for no
@@ -122,7 +121,7 @@ Print_Title:
 +	lda 	#PET_CLEAR
 	jsr 	CHROUT
 
-	+Write_XY 17, 29, Lvl
+	+Write_XY 21, 29, Lvl
 	jsr	get_num_levels
 	sta	lvl
 	stz	Dec10
@@ -139,16 +138,14 @@ Print_Title:
 	ldx	#0			;Load X with 0 so we can count numbers pressed
 @get_char
 	JSR	CHRIN
-	cpx	#5
-	bpl	@Choice
 	inx
 	cmp	#$0D			;Has user pressed return?
 	beq	@return
-	cmp	#$29
-	bmi	@Choice
+	cmp	#$29			;User pressed something else than a number
+	+FBMI	@num_error
 	cmp	#$40
-	bpl	@Choice
-	and	#$0F
+	+FBPL	@num_error
+	and	#$0F			;Now we are sure we have a number
 	cpx	#1
 	bne	@chk2
 	sta	char1
@@ -158,7 +155,7 @@ Print_Title:
 	sta	char2
 	jmp	@get_char
 @chk3	cpx	#4
-	bpl	@Choice
+	bpl	@thumbs			;If user has pressed more than 3 numbers show thumbs error
 	sta	char3
 	jmp	@get_char
 
@@ -195,10 +192,53 @@ Print_Title:
 	ldy	#1
 	sty	result
 
+@clear
+	lda	#PET_CLEAR
+	jsr	CHROUT
+	rts
+
+@thumbs
+	JSR	@clear
+
+	+Write_XY 23, 28, Toom0
+	+Write_XY 23, 29, Toom1
+	+Write_XY 23, 30, Toom2
+	+Write_XY 23, 31, Toom3
+
+	jmp	@error_loop
+
+@num_error
+	jsr	@clear
+
+	+Write_XY 23, 28, Numb0
+	+Write_XY 23, 29, Numb1
+	+Write_XY 23, 30, Numb2
+	+Write_XY 23, 31, Numb3
+
+	jmp	@error_loop
+
+@not_zero
+	JSR	@clear
+
+	+Write_XY 23, 28, Nozero0
+	+Write_XY 23, 29, Nozero1
+	+Write_XY 23, 30, Nozero2
+	+Write_XY 23, 31, Nozero3
+
+	jmp	@error_loop
+
+@error_loop
+	jsr	GETIN
+	beq	@error_loop
+
+	cmp	#' '
+	bne	@error_loop
+	jmp	@Choice
+
 @end	inc	lvl
 	ldy	result
 	cpy	#0
-	+FBEQ	@Choice
+	+FBEQ	@not_zero
 	cpy	lvl
 	+FBPL	@Choice
 	rts

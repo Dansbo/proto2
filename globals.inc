@@ -108,6 +108,22 @@ Undec2:		!PET			$B4,"    but now i am not sure.    ",$EA,0
 Undec3:		!PET			$B4,"   press space to continue?   ",$EA,0
 Undec4:		!PET			$6C,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$FA,0
 
+Numb0:		!PET			$6F,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$70,0
+Numb1:		!PET			$B4," how hard is it to pick a number? ",$EA,0
+Numb2:		!PET			$B4,"     press space to continue      ",$EA,0
+Numb3:		!PET			$6C,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$FA,0
+
+Nozero0:	!PET			$6F,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$70,0
+Nozero1:	!PET			$B4," have you ever heard of level 0? ",$EA,0
+Nozero2:	!PET			$B4,"     press space to continue     ",$EA,0
+Nozero3:	!PET			$6C,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$FA,0
+
+Toom0:		!PET			$6F,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$70,0
+Toom1:		!PET			$B4," do you have ten thumbs or what? ",$EA,0
+Toom2:		!PET			$B4,"     press space to continue     ",$EA,0
+Toom3:		!PET			$6C,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$FA,0
+
+
 Lvl:		!PET			"choose your level (default:1) 1 - "
 
 Bin:		!BYTE			0
