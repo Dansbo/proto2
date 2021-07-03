@@ -5,50 +5,26 @@
 ;.A is input, result is OUTPUT, Modifies .Y
 ;******************************************************************************
 Multiply100x:
-	stz	result		;Initialize result to 0
-	tay			;Save .A for later use
-	asl
-	asl
-	asl
-	asl
-	asl
-	sta	result		;Result = 32 x .A
-	tya
-	asl
-	asl
-	asl
-	asl
-	clc
-	adc	result
-	sta	result		;Result = 32 x .A + 16 x .A = 48 x .A
-	tya
-	asl
-	clc
-	adc	result		;.A = 48 x .A + 2 x .A = 50 x .A
-	asl
-	sta	result		;Result = 2 x 50 x .A = 100 x .A
+	tay
+	lda	@tbl100,y
+	sta	result
 	rts
+@tbl100:
+	!byte	0,100,200,0,0,0,0,0,0,0
 
 ;******************************************************************************
 ;Multiply .A with 10 and add to result
 ;.A is input, result is OUTPUT, modifies .X, .Y
 ;******************************************************************************
 Multiply10x:
-	ldx	result		;Store result in .X as it may contain hundreds
-	tay			;Save .A for later user
-	asl
-	asl
-	sta	result		;result = 4 x .A
-	tya			;Restore original .A
-	clc
-	adc	result		;.A = 4 x .A + .A = 5 x .A
-	asl
-	sta	result		;Result = 10 x .A
-	txa			;restore original .A
+	tay
+	lda	@tbl10,y
 	clc
 	adc	result
-	sta	result		;Result = result + 10 x .A
+	sta	result
 	rts
+@tbl10:
+	!byte	0,10,20,30,40,50,60,70,80,90
 
 ;******************************************************************************
 ;Adds .A to result
