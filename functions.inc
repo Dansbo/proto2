@@ -12,23 +12,21 @@ Multiply100x:
 	asl
 	asl
 	asl
-	asl
-	sta	result		;Result = 64 x .A
-	tya			;Reload original .A
-	asl
+	sta	result		;Result = 32 x .A
+	tya
 	asl
 	asl
 	asl
 	asl
 	clc
 	adc	result
-	sta	result		;Result = 64 x .A + 32 x .A = 96 x .A
-	tya			;Relaod original .A
-	asl
+	sta	result		;Result = 32 x .A + 16 x .A = 48 x .A
+	tya
 	asl
 	clc
-	adc	result
-	sta	result		;Result = 96 x .A + 4 x .A = 100 x .A
+	adc	result		;.A = 48 x .A + 2 x .A = 50 x .A
+	asl
+	sta	result		;Result = 2 x 50 x .A = 100 x .A
 	rts
 
 ;******************************************************************************
@@ -40,17 +38,16 @@ Multiply10x:
 	tay			;Save .A for later user
 	asl
 	asl
+	sta	result		;result = 4 x .A
+	tya			;Restore original .A
+	clc
+	adc	result		;.A = 4 x .A + .A = 5 x .A
 	asl
-	sta	result		;Result = 8 x .A
-	tya			;Reload original .A
-	asl
+	sta	result		;Result = 10 x .A
+	txa			;restore original .A
 	clc
 	adc	result
-	sta	result		;result = 8 x .A + 2 x .A = 10 x .A
-	txa			;Transfer original result to .A
-	clc
-	adc	result
-	sta	result		;result = result + 10 x .A
+	sta	result		;Result = result + 10 x .A
 	rts
 
 ;******************************************************************************
