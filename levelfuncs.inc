@@ -776,8 +776,9 @@ load_level:
 @NEXT_Y=TMP5
 @NEXT_I=TMP6
 
-	lda	#$10			; Make VERA increment by 1
-	sta	VERA_ADDR_H
+	phy
+	jsr	reset_game_grid
+	ply
 
 	lda	#$30			; PETSCII 0 in @INPUT_CNT
 	sta	@INPUT_CNT
