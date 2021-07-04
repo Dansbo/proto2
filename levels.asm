@@ -122,21 +122,33 @@
 ;       ***** type and does not have any more information associated with it.
 ;	***** This is the end of a level
 Levels:
-	; Level 1 - 2 off inputs, 1 AND gate
-	!byte	$02	; 2 moves to solve level
- ;		 X   Y  Type X   Y   Input
-	!byte	$00,$05,$00,$07,$06,$00
-	!byte	$00,$07,$00,$07,$06,$02
-	!byte	$07,$06,$04,$0F,$06,$01
-	!byte	$0F,$06
+	; Level 1
+	; 1 on input and an inverter
+	!byte	$01	; 1 move to solve level
+;		 X   Y  Type X   Y  Input
+	!byte	$00,$07,$02,$07,$07,$01		; Input ON
+	!byte	$07,$07,$34,$0F,$07,$01		; NOT gate
+	!byte	$0F,$07				; Output
 
-	!byte	$03
-	!byte	$00,$01,$00,$06,$06,$00
-	!byte	$00,$07,$00,$06,$06,$02
-	!byte	$00,$0C,$00,$08,$07,$02
-	!byte	$06,$06,$04,$08,$07,$00
-	!byte	$08,$07,$04,$0F,$07,$01
-	!byte	$0F,$07
+	; Level 2
+	; 2 off inputs, 1 AND gate
+	!byte	$02	; 2 moves to solve level
+ ;		 X   Y  Type X   Y  Input
+	!byte	$00,$05,$00,$07,$06,$00		; Input OFF
+	!byte	$00,$07,$00,$07,$06,$02		; Input OFF
+	!byte	$07,$06,$04,$0F,$06,$01		; AND gate
+	!byte	$0F,$06				; Output
+
+	; Level 3
+	; 3 off inputs, 2 AND gates
+	!byte	$03	; 3 moves to solve level
+;		 X   Y  Type X   Y  Input
+	!byte	$00,$01,$00,$06,$06,$00		; Input OFF
+	!byte	$00,$07,$00,$06,$06,$02		; Input OFF
+	!byte	$00,$0C,$00,$08,$07,$02		; Input OFF
+	!byte	$06,$06,$04,$08,$07,$00		; AND gate
+	!byte	$08,$07,$04,$0F,$07,$01		; AND gate
+	!byte	$0F,$07				; Output
 
 End_of_levels:
 	!byte	$FF,$FF
