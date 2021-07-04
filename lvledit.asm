@@ -88,9 +88,7 @@ main:
 	jsr	clear_game_grid
 
 	jsr	select_grid
-	lda	Sel_grid_x
-	ldy	Sel_grid_y
-	jsr	VTUI_gotoxy
+	+VERA_GOXY ~Sel_grid_x, ~Sel_grid_y
 	ldx	#RED<<4
 	jsr	sel_grid_color
 
@@ -129,15 +127,23 @@ main:
 	bra	@loop
 	rts
 
+place_gate:
+	wai
+	jsr	GETIN
+	cmp	#0
+	beq	place_gate
+
+	rts
+
+; Let the user select a gate
+; Global variable Selected_gate_type is updated as the user selects
 select_gate:
 	wai
 	jsr	GETIN
 	cmp	#0
 	beq	select_gate
 	pha
-	lda	Sel_grid_x
-	ldy	Sel_grid_y
-	jsr	VTUI_gotoxy
+	+VERA_GOXY ~Sel_grid_x, ~Sel_grid_y
 	ldx	#GREEN<<4
 	jsr	sel_grid_color
 	pla
@@ -249,18 +255,14 @@ select_gate:
 	sta	Prog_state
 	rts
 @set_col:
-	lda	Sel_grid_x
-	ldy	Sel_grid_y
-	jsr	VTUI_gotoxy
+	+VERA_GOXY ~Sel_grid_x, ~Sel_grid_y
 	ldx	#RED<<4
 	jsr	sel_grid_color
 	jmp	select_gate
 	rts
 
 clear_game_grid:
-	lda	#32
-	ldy	#12
-	jsr	VTUI_gotoxy
+	+VERA_GOXY 32, 12
 	lda	#16*3
 	sta	r1l
 	sta	r2l
@@ -278,8 +280,7 @@ clear_game_grid:
 ; Set bg color of select grid field to value in .X
 ; Value should only be 4 bit and must be in upper nibble
 sel_grid_color:
-	lda	#0
-	jsr	VTUI_set_stride
+	+VERA_SET_STRIDE 0
 
 	lda	VERA_ADDR_L
 	clc
@@ -298,8 +299,7 @@ sel_grid_color:
 	sbc	#5
 	sta	VERA_ADDR_L
 
-	lda	#2
-	jsr	VTUI_set_stride
+	+VERA_SET_STRIDE 2
 	inc	VERA_ADDR_L
 	ldy	VERA_ADDR_L
 	stx	VERA_DATA0
@@ -316,14 +316,11 @@ sel_grid_color:
 	stx	VERA_DATA0
 	stx	VERA_DATA0
 	dec	VERA_ADDR_L
-	lda	#1
-	jsr	VTUI_set_stride
+	+VERA_SET_STRIDE 1
 	rts
 
 select_grid:
-	lda	#5
-	ldy	#36
-	jsr	VTUI_gotoxy
+	+VERA_GOXY 5, 36
 
 	lda	#(7*3)+2
 	sta	r1l
