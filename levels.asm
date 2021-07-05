@@ -139,8 +139,18 @@ Levels:
 	!byte	$0A,$07,$34,$0F,$07,$01		; NOT gate
 	!byte	$0F,$07				; Output
 
-
 	; Level 3
+	; 1 on input, 3 NOT gates
+	!byte	$01	; 1 move to solve level
+;		 X   Y  Type X   Y  Input
+	!byte	$00,$07,$02,$03,$07,$01		; Input ON
+	!byte	$03,$07,$34,$07,$03,$01		; NOT gate
+	!byte	$07,$03,$34,$0A,$0A,$01		; NOT gate
+	!byte	$0A,$0A,$34,$0F,$07,$01		; NOT gate
+	!byte	$0F,$07				; Output
+
+
+	; Level 4
 	; 2 off inputs, 1 AND gate
 	!byte	$02	; 2 moves to solve level
  ;		 X   Y  Type X   Y  Input
@@ -149,7 +159,7 @@ Levels:
 	!byte	$07,$06,$04,$0F,$06,$01		; AND gate
 	!byte	$0F,$06				; Output
 
-	; Level 4
+	; Level 5
 	; 3 off inputs, 2 AND gates
 	!byte	$03	; 3 moves to solve level
 ;		 X   Y  Type X   Y  Input
