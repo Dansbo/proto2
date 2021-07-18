@@ -97,10 +97,10 @@ Copr6:		!PET			"****    **   **  **  **   ****   ******   **  **   ****    ****"
 
 Year:		!PET PET_WHITE,		"2021",0
 
-Why0:		!PET			$6F,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$70,0
-Why1:		!PET			$B4," then why bother load the game? ",$EA,0
-Why2:		!PET			$B4,"    press space to continue     ",$EA,0
-Why3:		!PET			$6C,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$FA,0
+Why0:		!PET			$6F,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$70,0
+Why1:		!PET			$B4," do you think you get off this easy ",$EA,0
+Why2:		!PET			$B4,"      press space to continue       ",$EA,0
+Why3:		!PET			$6C,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$FA,0
 
 Undec0:		!PET			$6F,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$70,0
 Undec1:		!PET			$B4," i also used to be indecisive,",$EA,0
@@ -122,6 +122,11 @@ Toom0:		!PET			$6F,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$
 Toom1:		!PET			$B4," do you have ten thumbs or what? ",$EA,0
 Toom2:		!PET			$B4,"     press space to continue     ",$EA,0
 Toom3:		!PET			$6C,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$FA,0
+
+Shoe0:		!PET			$6F,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$B7,$70,0
+Shoe1:		!PET			$B4," is your iq less than your shoe size? ",$EA,0
+Shoe2:		!PET			$B4,"        press space to confirm        ",$EA,0
+Shoe3:		!PET			$6C,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$EF,$FA,0
 
 
 Lvl:		!PET			"choose your level (default:1) 1 - "
