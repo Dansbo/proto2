@@ -123,25 +123,90 @@
 ;	***** This is the end of a level
 Levels:
 	; Level 1
-	; 1 on input and an inverter
-	!byte	$01	; 1 move to solve level
+	; 2 off inputs, 1 AND gate
+	!byte	$02	; moves to solve level
+ ;		 X   Y  Type X   Y  Input
+	!byte	$00,$05,$00,$07,$06,$00		; Input OFF
+	!byte	$00,$07,$00,$07,$06,$02		; Input OFF
+	!byte	$07,$06,$04,$0F,$06,$01		; AND gate
+	!byte	$0F,$06				; Output
+
+	; Level 2
+	; 3 off inputs, 2 AND gates
+	!byte	$03	; moves to solve level
+;		 X   Y  Type X   Y  Input
+	!byte	$00,$01,$00,$06,$06,$00		; Input OFF
+	!byte	$00,$07,$00,$06,$06,$02		; Input OFF
+	!byte	$00,$0C,$00,$08,$07,$02		; Input OFF
+	!byte	$06,$06,$04,$08,$07,$00		; AND gate
+	!byte	$08,$07,$04,$0F,$07,$01		; AND gate
+	!byte	$0F,$07				; Output
+
+	; Level 3
+	; 4 off inputs, 3 AND gates
+	!byte	$04	; moves to solve level
+;		 X   Y  Type X   Y  Input
+	!byte	$00,$01,$00,$06,$06,$00		; Input OFF
+	!byte	$00,$07,$00,$06,$06,$02		; Input OFF
+	!byte	$00,$08,$00,$06,$09,$00		; Input OFF
+	!byte	$00,$0C,$00,$06,$09,$02		; Input OFF
+	!byte	$06,$06,$04,$08,$07,$00		; AND gate
+	!byte	$06,$09,$04,$08,$07,$02		; AND gate
+	!byte	$08,$07,$04,$0F,$07,$01		; AND gate
+	!byte	$0F,$07				; Output
+
+	; Level 4
+	; 5 off inputs, 4 AND gates
+	!byte	$05	; moves to solve level
+;		 X   Y  Type X   Y  Input
+	!byte	$00,$01,$00,$06,$06,$00		; Input OFF
+	!byte	$00,$07,$00,$06,$06,$02		; Input OFF
+	!byte	$00,$08,$00,$06,$09,$00		; Input OFF
+	!byte	$00,$0C,$00,$06,$09,$02		; Input OFF
+	!byte	$00,$0D,$00,$0A,$08,$02		; Input OFF
+	!byte	$06,$06,$04,$08,$07,$00		; AND gate
+	!byte	$06,$09,$04,$08,$07,$02		; AND gate
+	!byte	$08,$07,$04,$0A,$08,$00		; AND gate
+	!byte	$0A,$08,$04,$0F,$08,$01		; AND gate
+	!byte	$0F,$08				; Output
+
+	; Level 5
+	; 6 off inputs, 5 AND gates
+	!byte	$05	; moves to solve level
+;		 X   Y  Type X   Y  Input
+	!byte	$00,$01,$00,$06,$06,$00		; Input OFF
+	!byte	$00,$07,$00,$06,$06,$02		; Input OFF
+	!byte	$00,$08,$00,$06,$09,$00		; Input OFF
+	!byte	$00,$0C,$00,$06,$09,$02		; Input OFF
+	!byte	$00,$0D,$00,$06,$0E,$00		; Input OFF
+	!byte	$00,$0F,$00,$06,$0E,$02		; Input OFF
+	!byte	$06,$06,$04,$08,$07,$00		; AND gate
+	!byte	$06,$09,$04,$08,$07,$02		; AND gate
+	!byte	$06,$0E,$04,$0A,$08,$02
+	!byte	$08,$07,$04,$0A,$08,$00		; AND gate
+	!byte	$0A,$08,$04,$0F,$08,$01		; AND gate
+	!byte	$0F,$08				; Output
+
+	; Level 6
+	; 1 on input, 1 NOT gate
+	!byte	$01	; 1 moves to solve level
 ;		 X   Y  Type X   Y  Input
 	!byte	$00,$07,$02,$07,$07,$01		; Input ON
 	!byte	$07,$07,$34,$0F,$07,$01		; NOT gate
 	!byte	$0F,$07				; Output
 
-	; Level 2
+	; Level 7
 	; 1 on input, 2 NOT gates
-	!byte	$01	; 1 move to solve level
+	!byte	$01	; 1 moves to solve level
 ;		 X   Y  Type X   Y  Input
 	!byte	$00,$07,$00,$05,$07,$01		; Input OFF
 	!byte	$05,$07,$34,$0A,$07,$01		; NOT gate
 	!byte	$0A,$07,$34,$0F,$07,$01		; NOT gate
 	!byte	$0F,$07				; Output
 
-	; Level 3
+	; Level 8
 	; 1 on input, 3 NOT gates
-	!byte	$01	; 1 move to solve level
+	!byte	$01	; moves to solve level
 ;		 X   Y  Type X   Y  Input
 	!byte	$00,$07,$02,$03,$07,$01		; Input ON
 	!byte	$03,$07,$34,$07,$03,$01		; NOT gate
@@ -149,25 +214,27 @@ Levels:
 	!byte	$0A,$0A,$34,$0F,$07,$01		; NOT gate
 	!byte	$0F,$07				; Output
 
-
-	; Level 4
-	; 2 off inputs, 1 AND gate
-	!byte	$02	; 2 moves to solve level
- ;		 X   Y  Type X   Y  Input
-	!byte	$00,$05,$00,$07,$06,$00		; Input OFF
-	!byte	$00,$07,$00,$07,$06,$02		; Input OFF
-	!byte	$07,$06,$04,$0F,$06,$01		; AND gate
-	!byte	$0F,$06				; Output
-
-	; Level 5
-	; 3 off inputs, 2 AND gates
-	!byte	$03	; 3 moves to solve level
+	; Level 9
+	; 1 on input, 4 NOT gates
+	!byte	$01	; moves to solve level
 ;		 X   Y  Type X   Y  Input
-	!byte	$00,$01,$00,$06,$06,$00		; Input OFF
-	!byte	$00,$07,$00,$06,$06,$02		; Input OFF
-	!byte	$00,$0C,$00,$08,$07,$02		; Input OFF
-	!byte	$06,$06,$04,$08,$07,$00		; AND gate
-	!byte	$08,$07,$04,$0F,$07,$01		; AND gate
+	!byte	$00,$07,$00,$02,$0E,$01		; Input OFF
+	!byte	$02,$0E,$34,$04,$02,$01		; NOT gate
+	!byte	$04,$02,$34,$06,$05,$01		; NOT gate
+	!byte	$06,$05,$34,$08,$09,$01		; NOT gate
+	!byte	$08,$09,$34,$0F,$07,$01		; NOT gate
+	!byte	$0F,$07				; Output
+
+	; Level 10
+	; 1 on input, 5 NOT gates
+	!byte	$01	; moves to solve level
+;		 X   Y  Type X   Y  Input
+	!byte	$00,$07,$02,$02,$0E,$01		; Input ON
+	!byte	$02,$0E,$34,$04,$02,$01		; NOT gate
+	!byte	$04,$02,$34,$06,$05,$01		; NOT gate
+	!byte	$06,$05,$34,$08,$09,$01		; NOT gate
+	!byte	$08,$09,$34,$0B,$0C,$01		; NOT gate
+	!byte	$0B,$0C,$34,$0F,$07,$01
 	!byte	$0F,$07				; Output
 
 End_of_levels:
