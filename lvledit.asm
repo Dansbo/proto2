@@ -39,26 +39,6 @@ Game_grid_x:
 	!byte	$00
 Game_grid_y:
 	!byte	$00
-Game_grid_ptr:
-	!byte	$00
-
-Grid_array:
-	!byte	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-	!byte	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-	!byte	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-	!byte	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-	!byte	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-	!byte	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-	!byte	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-	!byte	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-	!byte	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-	!byte	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-	!byte	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-	!byte	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-	!byte	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-	!byte	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-	!byte	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-	!byte	$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
 
 main:
 	jsr	load_vtui	; Load and initialize VTUI library
@@ -67,7 +47,6 @@ main:
 
 	stz	Selected_gate_type
 	stz	Prog_state
-	stz	Game_grid_ptr
 	lda	#6
 	sta	Sel_grid_x
 	lda	#37
@@ -77,8 +56,9 @@ main:
 	lda	#12
 	sta	Game_grid_y
 
-	clc
-	jsr	VTUI_set_bank
+	; Set VERA bank (addr bit 16) to 0 and increment to 1
+	lda	#$10
+	sta	VERA_ADDR_H
 
 	lda	#' '
 	ldx	#BLACK<<4|WHITE
@@ -102,7 +82,7 @@ main:
 @place
 	cmp	#GATE_PLACE
 	bne	@start_wire
-	;place gate
+	;place gate    !!!!!!!!!!!!!!!!!!!!!!!! You have reached here !!!!!
 	!byte $db
 	bra	@loop
 @start_wire:
@@ -268,14 +248,7 @@ clear_game_grid:
 	sta	r2l
 	ldx	#GREEN<<4|BLACK
 	lda	#' '
-	jsr	VTUI_fill_box
-
-	ldx	#(16*16)-1
-@loop:
-	stz	Grid_array,x
-	dex
-	bpl	@loop
-
+	jmp	VTUI_fill_box
 
 ; Set bg color of select grid field to value in .X
 ; Value should only be 4 bit and must be in upper nibble
