@@ -227,6 +227,16 @@ Print_Title:
 
 	jmp	@error_loop
 
+@shoeiq
+	JSR	@clear
+
+	+Write_XY 21, 28, Shoe0
+	+Write_XY 21, 29, Shoe1
+	+Write_XY 21, 30, Shoe2
+	+Write_XY 21, 31, Shoe3
+
+	jmp	@error_loop
+
 @error_loop
 	jsr	GETIN
 	beq	@error_loop
@@ -240,6 +250,6 @@ Print_Title:
 	cpy	#0
 	+FBEQ	@not_zero
 	cpy	lvl
-	+FBPL	@Choice
+	+FBPL	@shoeiq
 	rts
 TextUI_end
