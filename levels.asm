@@ -122,6 +122,15 @@
 ;       ***** type and does not have any more information associated with it.
 ;	***** This is the end of a level
 Levels:
+	; AND gate - Outputs true (1), only when all inputs are true (1)
+	; Truthtable:
+	;  B  A | Y
+	; ------+---
+	;  0  0 | 0
+	;  0  1 | 0
+	;  1  0 | 0
+	;  1  1 | 1
+
 	; Level 1
 	; 2 off inputs, 1 AND gate
 	!byte	$02	; moves to solve level
@@ -186,6 +195,13 @@ Levels:
 	!byte	$08,$07,$04,$0A,$08,$00		; AND gate
 	!byte	$0A,$08,$04,$0F,$08,$01		; AND gate
 	!byte	$0F,$08				; Output
+
+	; NOT gate - Outputs the opposite of it's input, it is also called an inverter
+	; Truthtable:
+	;  A | Y
+	; ---+---
+	;  0 | 1
+	;  1 | 0
 
 	; Level 6
 	; 1 on input, 1 NOT gate
