@@ -306,5 +306,82 @@ Levels:
 	!byte	$09,$06,$34,$0F,$06,$01		; NOT gate
 	!byte	$0F,$06				; Output
 
+	; NAND gate - The same as an AND gate, but with a NOT on the output.
+	;             This means that it will output true (1) except when
+	;             both inputs are true (1)
+	; Truthtable:
+	;  B  A | Y
+	; ------+---
+	;  0  0 | 1
+	;  0  1 | 1
+	;  1  0 | 1
+	;  1  1 | 0
+
+	; Level 16
+	; 2 inputs, 1 NAND gate
+	!byte	$01	; moves to solve level
+ ;		 X   Y  Type X   Y  Input
+	!byte	$00,$05,$02,$07,$06,$00		; Input ON
+	!byte	$00,$07,$02,$07,$06,$02		; Input ON
+	!byte	$07,$06,$0C,$0F,$06,$01		; NAND gate
+	!byte	$0F,$06				; Output
+
+	; Level 17
+	; 3 inputs, 2 NAND gates
+	!byte	$01	; moves to solve level
+;		 X   Y  Type X   Y  Input
+	!byte	$00,$01,$00,$06,$06,$00		; Input OFF
+	!byte	$00,$07,$00,$06,$06,$02		; Input OFF
+	!byte	$00,$0C,$02,$08,$07,$02		; Input ON
+	!byte	$06,$06,$0C,$08,$07,$00		; NAND gate
+	!byte	$08,$07,$0C,$0F,$07,$01		; NAND gate
+	!byte	$0F,$07				; Output
+
+	; Level 18
+	; 4 inputs, 3 NAND gates
+	!byte	$02	; moves to solve level
+;		 X   Y  Type X   Y  Input
+	!byte	$00,$01,$00,$06,$06,$00		; Input OFF
+	!byte	$00,$07,$00,$06,$06,$02		; Input OFF
+	!byte	$00,$08,$00,$06,$09,$00		; Input OFF
+	!byte	$00,$0C,$00,$06,$09,$02		; Input OFF
+	!byte	$06,$06,$0C,$08,$07,$00		; NAND gate
+	!byte	$06,$09,$0C,$08,$07,$02		; NAND gate
+	!byte	$08,$07,$0C,$0F,$07,$01		; NAND gate
+	!byte	$0F,$07				; Output
+
+	; Level 19
+	; 5 inputs, 4 NAND gates
+	!byte	$01	; moves to solve level
+;		 X   Y  Type X   Y  Input
+	!byte	$00,$01,$02,$06,$06,$00		; Input ON
+	!byte	$00,$07,$02,$06,$06,$02		; Input ON
+	!byte	$00,$08,$02,$06,$09,$00		; Input ON
+	!byte	$00,$0C,$02,$06,$09,$02		; Input ON
+	!byte	$00,$0D,$02,$0A,$08,$02		; Input ON
+	!byte	$06,$06,$0C,$08,$07,$00		; NAND gate
+	!byte	$06,$09,$0C,$08,$07,$02		; NAND gate
+	!byte	$08,$07,$0C,$0A,$08,$00		; NAND gate
+	!byte	$0A,$08,$0C,$0F,$08,$01		; NAND gate
+	!byte	$0F,$08				; Output
+
+	; Level 20
+	; 6 inputs, 5 NAND gates
+	!byte	$01	; moves to solve level
+;		 X   Y  Type X   Y  Input
+	!byte	$00,$01,$00,$06,$06,$00		; Input OFF
+	!byte	$00,$07,$00,$06,$06,$02		; Input OFF
+	!byte	$00,$08,$02,$06,$09,$00		; Input ON
+	!byte	$00,$0C,$02,$06,$09,$02		; Input ON
+	!byte	$00,$0D,$00,$06,$0E,$00		; Input OFF
+	!byte	$00,$0F,$00,$06,$0E,$02		; Input OFF
+	!byte	$06,$06,$0C,$08,$07,$00		; NAND gate
+	!byte	$06,$09,$0C,$08,$07,$02		; NAND gate
+	!byte	$06,$0E,$0C,$0A,$08,$02		; NAND gate
+	!byte	$08,$07,$0C,$0A,$08,$00		; NAND gate
+	!byte	$0A,$08,$0C,$0F,$08,$01		; NAND gate
+	!byte	$0F,$08				; Output
+
+
 End_of_levels:
 	!byte	$FF,$FF
