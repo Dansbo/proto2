@@ -27,50 +27,62 @@ Init_VERA:
 Print_Title:
 	lda #PET_CLEAR
 	jsr CHROUT
-	+Write_XY 12, 1, Title0
-	+Write_XY 12, 2, Title1
-	+Write_XY 12, 3, Title2
-	+Write_XY 12, 4, Title3
-	+Write_XY 12, 5, Title4
-	+Write_XY 12, 6, Title5
-	+Write_XY 12, 7, Title6
+!set @XCORD=12
+!set @YCORD=1
+	+Write_XY @XCORD, @YCORD+0, Title0
+	+Write_XY @XCORD, @YCORD+1, Title1
+	+Write_XY @XCORD, @YCORD+2, Title2
+	+Write_XY @XCORD, @YCORD+3, Title3
+	+Write_XY @XCORD, @YCORD+4, Title4
+	+Write_XY @XCORD, @YCORD+5, Title5
+	+Write_XY @XCORD, @YCORD+6, Title6
 	+Write_XY 16, 10, Welcome
-	+Write_XY 0, 13, Hell0
-	+Write_XY 0, 14, Hell1
-	+Write_XY 0, 15, Hell2
-	+Write_XY 0, 16, Hell3
-	+Write_XY 0, 17, Hell4
-	+Write_XY 0, 18, Hell5
-	+Write_XY 0, 19, Hell6
-	+Write_XY 39, 21, Hell7
-	+Write_XY 39, 22, Hell8
-	+Write_XY 39, 23, Hell9
-	+Write_XY 39, 24, Hell10
-	+Write_XY 39, 25, Hell11
-	+Write_XY 39, 26, Hell12
-	+Write_XY 39, 27, Hell13
+!set @XCORD=9
+!set @YCORD=13
+	+Write_XY @XCORD, @YCORD+0, Hell0
+	+Write_XY @XCORD, @YCORD+1, Hell1
+	+Write_XY @XCORD, @YCORD+2, Hell2
+	+Write_XY @XCORD, @YCORD+3, Hell3
+	+Write_XY @XCORD, @YCORD+4, Hell4
+	+Write_XY @XCORD, @YCORD+5, Hell5
+	+Write_XY @XCORD, @YCORD+6, Hell6
+!set @XCORD=39
+!set @YCORD=21
+	+Write_XY @XCORD, @YCORD+0, Hell7
+	+Write_XY @XCORD, @YCORD+1, Hell8
+	+Write_XY @XCORD, @YCORD+2, Hell9
+	+Write_XY @XCORD, @YCORD+3, Hell10
+	+Write_XY @XCORD, @YCORD+4, Hell11
+	+Write_XY @XCORD, @YCORD+5, Hell12
+	+Write_XY @XCORD, @YCORD+6, Hell13
 	+Write_XY 16, 30, Choose
-	+Write_XY 12, 33, Create0
-	+Write_XY 12, 34, Create1
-	+Write_XY 12, 35, Create2
-	+Write_XY 12, 36, Create3
-	+Write_XY 12, 37, Create4
-	+Write_XY 12, 38, Create5
-	+Write_XY 12, 39, Create6
-	+Write_XY 31, 42, By0
-	+Write_XY 31, 43, By1
-	+Write_XY 31, 44, By2
-	+Write_XY 31, 45, By3
-	+Write_XY 31, 46, By4
-	+Write_XY 31, 47, By5
-	+Write_XY 31, 48, By6
-	+Write_XY 7, 51, Copr0
-	+Write_XY 7, 52, Copr1
-	+Write_XY 7, 53, Copr2
-	+Write_XY 7, 54, Copr3
-	+Write_XY 7, 55, Copr4
-	+Write_XY 7, 56, Copr5
-	+Write_XY 7, 57, Copr6
+!set @XCORD=12
+!set @YCORD=33
+	+Write_XY @XCORD, @YCORD+0, Create0
+	+Write_XY @XCORD, @YCORD+1, Create1
+	+Write_XY @XCORD, @YCORD+2, Create2
+	+Write_XY @XCORD, @YCORD+3, Create3
+	+Write_XY @XCORD, @YCORD+4, Create4
+	+Write_XY @XCORD, @YCORD+5, Create5
+	+Write_XY @XCORD, @YCORD+6, Create6
+!set @XCORD=31
+!set @YCORD=42
+	+Write_XY @XCORD, @YCORD+0, By0
+	+Write_XY @XCORD, @YCORD+1, By1
+	+Write_XY @XCORD, @YCORD+2, By2
+	+Write_XY @XCORD, @YCORD+3, By3
+	+Write_XY @XCORD, @YCORD+4, By4
+	+Write_XY @XCORD, @YCORD+5, By5
+	+Write_XY @XCORD, @YCORD+6, By6
+!set @XCORD=7
+!set @YCORD=51
+	+Write_XY @XCORD, @YCORD+0, Copr0
+	+Write_XY @XCORD, @YCORD+1, Copr1
+	+Write_XY @XCORD, @YCORD+2, Copr2
+	+Write_XY @XCORD, @YCORD+3, Copr3
+	+Write_XY @XCORD, @YCORD+4, Copr4
+	+Write_XY @XCORD, @YCORD+5, Copr5
+	+Write_XY @XCORD, @YCORD+6, Copr6
 	+Write_XY 75, 59, Year
 	stz TMP0
 
