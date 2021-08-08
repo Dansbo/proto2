@@ -212,7 +212,7 @@ Levels:
 	!byte	$0F,$07				; Output
 
 	; Level 7
-	; 1 on input, 2 NOT gates
+	; 1 off input, 2 NOT gates
 	!byte	$01	; 1 moves to solve level
 ;		 X   Y  Type X   Y  Input
 	!byte	$00,$07,$00,$05,$07,$01		; Input OFF
@@ -231,7 +231,7 @@ Levels:
 	!byte	$0F,$07				; Output
 
 	; Level 9
-	; 1 on input, 4 NOT gates
+	; 1 off input, 4 NOT gates
 	!byte	$01	; moves to solve level
 ;		 X   Y  Type X   Y  Input
 	!byte	$00,$07,$00,$02,$0E,$01		; Input OFF
